@@ -7,23 +7,26 @@ use App\Entity;
     En programmation orientée objet, une classe finale (final class) est une classe que vous ne pouvez pas étendre, c'est-à-dire qu'aucune autre classe ne peut hériter de cette classe. En d'autres termes, une classe finale ne peut pas être utilisée comme classe parente.
 */
 
-final class Topic extends Entity{
+final class Topic extends Entity
+{
 
-    private $id;
-    private $title;
-    private $user;
-    private $category;
-    private $creationDate;
-    private $closed;
+    private int $id;
+    private string $title;
+    private User $user;
+    private Category $category;
+    private DateTime $dateCreation;
+    private bool $closed;
 
-    public function __construct($data){         
-        $this->hydrate($data);        
+    public function __construct($data)
+    {
+        $this->hydrate($data);
     }
 
     /**
      * Get the value of id
-     */ 
-    public function getId(){
+     */
+    public function getId(): int
+    {
         return $this->id;
     }
 
@@ -31,16 +34,18 @@ final class Topic extends Entity{
      * Set the value of id
      *
      * @return  self
-     */ 
-    public function setId($id){
+     */
+    public function setId(int $id)
+    {
         $this->id = $id;
         return $this;
     }
 
     /**
      * Get the value of title
-     */ 
-    public function getTitle(){
+     */
+    public function getTitle(): string
+    {
         return $this->title;
     }
 
@@ -48,16 +53,18 @@ final class Topic extends Entity{
      * Set the value of title
      *
      * @return  self
-     */ 
-    public function setTitle($title){
+     */
+    public function setTitle(string $title)
+    {
         $this->title = $title;
         return $this;
     }
 
     /**
      * Get the value of user
-     */ 
-    public function getUser(){
+     */
+    public function getUser(): User
+    {
         return $this->user;
     }
 
@@ -65,13 +72,76 @@ final class Topic extends Entity{
      * Set the value of user
      *
      * @return  self
-     */ 
-    public function setUser($user){
+     */
+    public function setUser(User $user)
+    {
         $this->user = $user;
         return $this;
     }
 
-    public function __toString(){
+    /**
+     * Get the value of category
+     */
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set the value of category
+     *
+     * @return  self
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of dateCreation
+     */
+    public function getDateCreation(): DateTime
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set the value of dateCreation
+     *
+     * @return  self
+     */
+    public function setDateCreation(DateTime $dateCreation)
+    {
+        $this->dateCreation = new \DateTime($dateCreation);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of closed
+     */
+    public function getClosed(): bool
+    {
+        return $this->closed;
+    }
+
+    /**
+     * Set the value of closed
+     *
+     * @return  self
+     */
+    public function setClosed(bool $closed)
+    {
+        $this->closed = $closed;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
         return $this->title;
     }
+
 }
