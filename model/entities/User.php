@@ -14,7 +14,7 @@ final class User extends Entity
     private string $username;
     private string $email;
     private string $password;
-    private DateTime $registerDate;
+    private \DateTime $registerDate;
     private string $role;
 
 
@@ -105,7 +105,7 @@ final class User extends Entity
     /**
      * Get the value of registerDate
      */
-    public function getRegisterDate(): DateTime
+    public function getRegisterDate()
     {
         return $this->registerDate;
     }
@@ -115,7 +115,7 @@ final class User extends Entity
      *
      * @return  self
      */
-    public function setRegisterDate(DateTime $registerDate)
+    public function setRegisterDate($registerDate)
     {
         $this->registerDate = new \DateTime($registerDate);
 

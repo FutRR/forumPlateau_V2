@@ -6,11 +6,14 @@ use App\AbstractController;
 use App\ControllerInterface;
 use Model\Managers\CategoryManager;
 use Model\Managers\TopicManager;
+use Model\Managers\PostManager;
 
-class ForumController extends AbstractController implements ControllerInterface{
+class ForumController extends AbstractController implements ControllerInterface
+{
 
-    public function index() {
-        
+    public function index()
+    {
+
         // créer une nouvelle instance de CategoryManager
         $categoryManager = new CategoryManager();
         // récupérer la liste de toutes les catégories grâce à la méthode findAll de Manager.php (triés par nom)
@@ -18,7 +21,7 @@ class ForumController extends AbstractController implements ControllerInterface{
 
         // le controller communique avec la vue "listCategories" (view) pour lui envoyer la liste des catégories (data)
         return [
-            "view" => VIEW_DIR."forum/listCategories.php",
+            "view" => VIEW_DIR . "forum/listCategories.php",
             "meta_description" => "Liste des catégories du forum",
             "data" => [
                 "categories" => $categories
@@ -26,7 +29,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         ];
     }
 
-    public function listTopicsByCategory($id) {
+    public function listTopicsByCategory($id)
+    {
 
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
@@ -34,12 +38,31 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topics = $topicManager->findTopicsByCategory($id);
 
         return [
-            "view" => VIEW_DIR."forum/listTopics.php",
-            "meta_description" => "Liste des topics par catégorie : ".$category,
+            "view" => VIEW_DIR . "forum/listTopics.php",
+            "meta_description" => "Liste des topics par catégorie : " . $category,
             "data" => [
                 "category" => $category,
                 "topics" => $topics
             ]
         ];
+    }
+
+    public function listPostsByTopic($id)
+    {
+
+        $postManager = new PostManager();
+        $topicManager = new TopicManager();
+        $topic = $topicManager->findOneById($id);
+        $posts = $postManager->findPostsByTopic($id);
+
+        return [
+            "view" => VIEW_DIR . "forum/detailsTopic.php",
+            "meta_description" => "Liste des messages dans " . $topic,
+            "data" => [
+                "topic" => $topic,
+                "posts" => $posts,
+            ]
+        ];
+
     }
 }

@@ -14,7 +14,7 @@ final class Topic extends Entity
     private string $title;
     private User $user;
     private Category $category;
-    private DateTime $dateCreation;
+    private \DateTime $dateCreation;
     private bool $closed;
 
     public function __construct($data)
@@ -102,7 +102,7 @@ final class Topic extends Entity
     /**
      * Get the value of dateCreation
      */
-    public function getDateCreation(): DateTime
+    public function getDateCreation()
     {
         return $this->dateCreation;
     }
@@ -112,7 +112,7 @@ final class Topic extends Entity
      *
      * @return  self
      */
-    public function setDateCreation(DateTime $dateCreation)
+    public function setDateCreation($dateCreation)
     {
         $this->dateCreation = new \DateTime($dateCreation);
 
