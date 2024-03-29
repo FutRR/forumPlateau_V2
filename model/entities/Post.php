@@ -121,6 +121,19 @@ final class Post extends Entity
         return $this;
     }
 
+    public function displayDateMessage()
+    {
+        $date = $this->getDateMessage();
+        return $date->format('d-m-Y');
+    }
+
+    public function displayHeureMessage()
+    {
+        $date = $this->getDateMessage();
+        return $date->format('H:i');
+    }
+
+
     public function __toString()
     {
         return $this->contenu;

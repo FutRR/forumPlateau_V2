@@ -12,6 +12,8 @@ foreach ($posts as $post) { ?>
     <p>
         <?= $post->getContenu(); ?>
         par
-        <?= $post->getUser() ?>
+        <?= $post->getUser() ?> publié le
+        <?= $post->displayDateMessage() ?> à
+        <?= $post->displayHeureMessage() ?>
     </p>
 <?php }

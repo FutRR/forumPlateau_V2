@@ -139,6 +139,19 @@ final class Topic extends Entity
         return $this;
     }
 
+    public function displayDateCreation()
+    {
+        $date = $this->getDateCreation();
+        return $date->format('d F Y');
+    }
+
+    public function displayHeureCreation()
+    {
+        $date = $this->getDateCreation();
+        return $date->format('H:i');
+    }
+
+
     public function __toString()
     {
         return $this->title;
