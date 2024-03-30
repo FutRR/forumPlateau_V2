@@ -10,23 +10,28 @@ namespace App;
     -- permettent de fournir une certaine implémentation de base.
 */
 
-abstract class AbstractController{
+abstract class AbstractController
+{
 
-    public function index() {}
+    public function index()
+    {
+    }
 
-    public function redirectTo($ctrl = null, $action = null, $id = null){
+    public function redirectTo($ctrl = null, $action = null, $id = null)
+    {
 
-        $url = $ctrl ? "?ctrl=".$ctrl : "";
-        $url.= $action ? "&action=".$action : "";
-        $url.= $id ? "&id=".$id : "";
+        $url = $ctrl ? "?ctrl=" . $ctrl : "";
+        $url .= $action ? "&action=" . $action : "";
+        $url .= $id ? "&id=" . $id : "";
 
         header("Location: $url");
         die();
     }
 
-    public function restrictTo($role){
-        
-        if(!Session::getUser() || !Session::getUser()->hasRole($role)){
+    public function restrictTo($role)
+    {
+
+        if (!Session::getUser() || !Session::getUser()->hasRole($role)) {
             $this->redirectTo("security", "login");
         }
         return;
