@@ -27,9 +27,9 @@
                 <?= App\Session::getFlash("success") ?>
             </h3>
             <header>
-                <nav>
+                <nav class="navbar navbar-expand-lg mb-5">
                     <div id="nav-left">
-                        <a class="btn btn-primary m-1" href="index.php">Accueil</a>
+                        <a class="btn btn-primary m-1" href="index.php"><i class="fa-solid fa-house"></i></a>
                         <?php
                         if (App\Session::isAdmin()) {
                             ?>
@@ -57,11 +57,11 @@
                             <?php
                         }
                         ?>
-                    </div>
+                </nav>
                 </nav>
             </header>
 
-            <main id="forum">
+            <main id="forum" class="mt-5 mb-5">
                 <?= $page ?>
             </main>
         </div>
@@ -104,6 +104,7 @@
             });
         })
     </script>
+    <script src="https://kit.fontawesome.com/19a031a4c5.js" crossorigin="anonymous"></script>
     <script src="<?= PUBLIC_DIR ?>/js/script.js"></script>
 </body>
 
