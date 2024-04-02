@@ -124,7 +124,7 @@ final class Post extends Entity
     public function displayDateMessage()
     {
         $date = $this->getDateMessage();
-        return $date->format('d-m-Y');
+        return $date->format('d/m/Y');
     }
 
     public function displayHeureMessage()

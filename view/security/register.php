@@ -2,7 +2,7 @@
 
 <div class="container-fluid">
     <div class="col align-self-center">
-        <form action="index.php?ctrl=security&action=addRegister" method="POST" enctype="multipart/form-data"
+        <form action="index.php?ctrl=security&action=register" method="POST" enctype="multipart/form-data"
             class="mb-3 mx-auto">
             <p>
                 <label class="form-label">
@@ -40,7 +40,3 @@
         </form>
     </div>
 </div>
-
-</body>
-
-</html>

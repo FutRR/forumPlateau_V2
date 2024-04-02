@@ -142,7 +142,7 @@ final class Topic extends Entity
     public function displayDateCreation()
     {
         $date = $this->getDateCreation();
-        return $date->format('d F Y');
+        return $date->format('d/m/Y');
     }
 
     public function displayHeureCreation()

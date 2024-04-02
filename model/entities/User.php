@@ -142,6 +142,13 @@ final class User extends Entity
         return $this;
     }
 
+    public function displayRegisterDate()
+    {
+        $date = $this->getRegisterDate();
+        return $date->format('d/m/Y');
+    }
+
+
     public function __toString()
     {
         return $this->username;

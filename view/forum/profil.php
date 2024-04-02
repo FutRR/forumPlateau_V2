@@ -9,6 +9,10 @@ $posts = $result['data']['posts']
     <?= $profil->getUsername() ?>
 </h1>
 
+<p>Membre depuis le
+    <?= $profil->displayRegisterDate() ?>
+</p>
+
 <h2>Topics créés</h2>
 
 <?php

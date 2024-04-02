@@ -13,14 +13,6 @@ class SecurityController extends AbstractController
 
     public function register()
     {
-        return [
-            "view" => VIEW_DIR . "security/register.php",
-            "meta_description" => "S'inscrire au forum"
-        ];
-    }
-
-    public function addRegister()
-    {
         if (isset($_POST["submit"])) {
 
             $userManager = new UserManager;
@@ -50,6 +42,8 @@ class SecurityController extends AbstractController
                             ]);
 
                             Session::addFlash('success', 'Compte créé !');
+                            $this->redirectTo('security', 'login');
+                            exit;
 
                         } else {
                             Session::addFlash('error', 'Mot de passe invalide !');
@@ -67,14 +61,36 @@ class SecurityController extends AbstractController
         }
 
         return [
-            "view" => VIEW_DIR . "security/register.php",
             "meta_description" => "Inscription",
-
+            "view" => VIEW_DIR . "security/register.php",
         ];
 
     }
     public function login()
     {
+        if (isset($_POST["submit"])) {
+
+            $userManager = new UserManager;
+
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            if ($username && $password) {
+
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                if (password_verify($password, $hash)) {
+                    echo "correspond";
+                } else {
+                    "error";
+                }
+            }
+
+        }
+        return [
+            "meta_description" => "Connection",
+            "view" => VIEW_DIR . "security/login.php",
+        ];
+
     }
     public function logout()
     {
