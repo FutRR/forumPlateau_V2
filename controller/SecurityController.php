@@ -32,31 +32,45 @@ class SecurityController extends AbstractController
 
             if ($username && $email && $password1 && $password2) {
 
-                $checkEmail = $userManager->findByEmail($email) ? $userManager->findByEmail($email) : false;
+                // verifying if email is already taken
+                if (!$userManager->findOneByEmail($email)) {
 
-                $checkUsername = $userManager->findByUsername($username) ? $userManager->findByUsername($username) : false;
+                    // verifying if username is already taken
+                    if (!$userManager->findOneByUsername($username)) {
 
-                if ($checkEmail) {
-                    Session::addFlash("error", "Cet email est déjà utilisé.");
-                    $this->redirectTo("security", "register");
-                    exit;
+                        //verifying if password is the same on both inputs & if password is at least 5 characters long
+                        if ($password1 == $password2 && strlen($password1) >= 5) {
+
+                            $passwordHash = password_hash($password1, PASSWORD_DEFAULT);
+
+                            $userManager->add([
+                                "username" => $username,
+                                "email" => $email,
+                                "password" => $passwordHash
+                            ]);
+
+                            Session::addFlash('success', 'Compte créé !');
+
+                        } else {
+                            Session::addFlash('error', 'Mot de passe invalide !');
+                            $this->redirectTo('security', 'register');
+                        }
+                    } else {
+                        Session::addFlash('error', "Nom d'utilisateur déjà pris !");
+                        $this->redirectTo('security', 'register');
+                    }
+                } else {
+                    Session::addFlash('error', "Cet adresse email est déjà utilisée !");
+                    $this->redirectTo('security', 'register');
                 }
-
-                if ($checkUsername) {
-                    Session::addFlash("error", "Ce pseudo est déjà utilisé.");
-                    $this->redirectTo("security", "register");
-                    exit;
-                }
-
-            } else {
-                $this->redirectTo("security", "register");
-                exit;
             }
-
-        } else {
-            $this->redirectTo("security", "register");
-            exit;
         }
+
+        return [
+            "view" => VIEW_DIR . "security/register.php",
+            "meta_description" => "Inscription",
+
+        ];
 
     }
     public function login()

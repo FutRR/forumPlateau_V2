@@ -13,17 +13,9 @@ $posts = $result['data']['posts']
 
 <?php
 
-if (!isset($topics)) {
+if (isset($topics)) {
 
-    ?>
-    <p>0 topic postés</p>
-
-    <?php
-
-} else {
-
-    foreach ($topics as $topic) {
-        ?>
+    foreach ($topics as $topic) { ?>
 
         <p>
             <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>">
@@ -34,21 +26,21 @@ if (!isset($topics)) {
         </p>
 
         <?php
-
     }
+} else { ?>
+
+    <p>0 topic postés</p>
+
+    <?php
 }
+
 ?>
 
 <h2>Posts créés</h2>
 
-<?php if (!isset($posts)) { ?>
+<?php if (isset($posts)) {
 
-    <p>0 posts postés</p>
-
-<?php } else {
-
-    foreach ($posts as $post) {
-        ?>
+    foreach ($posts as $post) { ?>
 
         <p>
             <?= $post->getContenu() ?> publié le
@@ -59,7 +51,10 @@ if (!isset($topics)) {
             </a>
         </p>
 
-        <?php
+    <?php }
 
-    }
-} ?>
+} else { ?>
+
+    <p>0 posts postés</p>
+
+<?php } ?>

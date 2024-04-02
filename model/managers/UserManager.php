@@ -16,12 +16,11 @@ class UserManager extends Manager
         parent::connect();
     }
 
-    public function findByEmail($email)
+    public function findOneByEmail($email)
     {
-        $sql = 'SELECT * 
-                FROM ".$this->tablename." u 
-                WHERE u.email = :email';
-
+        $sql = "SELECT * 
+        FROM $this->tableName
+        WHERE user.email = :email";
         // la requête renvoie un ou enregistrements --> getOneOrNullResult
 
         return $this->getOneOrNullResult(
@@ -31,11 +30,11 @@ class UserManager extends Manager
 
     }
 
-    public function findByUsername($username)
+    public function findOneByUsername($username)
     {
-        $sql = 'SELECT *
-                FROM ".$this->tablename." u
-                WHERE u.username = :username';
+        $sql = "SELECT *
+                FROM $this->tableName
+                WHERE user.username = :username";
 
         // la requête renvoie un ou enregistrements --> getOneOrNullResult
 
@@ -44,6 +43,5 @@ class UserManager extends Manager
             $this->className
         );
     }
-
 
 }

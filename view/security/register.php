@@ -34,7 +34,7 @@
 
             <p>
                 <label class="form-label">
-                    <input class="btn btn-primary" type="submit" value="S'inscrire">
+                    <input class="btn btn-primary" type="submit" name="submit" value="S'inscrire">
                 </label>
             </p>
         </form>
