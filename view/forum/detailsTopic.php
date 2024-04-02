@@ -14,7 +14,9 @@ if (isset($topic)) {
         <p>
             <?= $post->getContenu(); ?>
             par
-            <?= $post->getUser() ?> publié le
+            <a href="index.php?ctrl=forum&action=userProfile&id=<?= $topic->getUser()->getId() ?>">
+                <?= $topic->getUser() ?>
+            </a> publié le
             <?= $post->displayDateMessage() ?> à
             <?= $post->displayHeureMessage() ?>
         </p>

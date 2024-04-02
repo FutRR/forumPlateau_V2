@@ -13,7 +13,9 @@ if (isset($topics)) {
         <p><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>">
                 <?= $topic->getTitle() ?>
             </a> par
-            <?= $topic->getUser() ?> / créer le
+            <a href="index.php?ctrl=forum&action=userProfile&id=<?= $topic->getUser()->getId() ?>">
+                <?= $topic->getUser() ?>
+            </a> / créé le
             <?= $topic->displayDateCreation(); ?> à
             <?= $topic->displayHeureCreation(); ?>
         </p>

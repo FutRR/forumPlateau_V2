@@ -7,6 +7,7 @@ use App\ControllerInterface;
 use Model\Managers\CategoryManager;
 use Model\Managers\TopicManager;
 use Model\Managers\PostManager;
+use Model\Managers\UserManager;
 
 class ForumController extends AbstractController implements ControllerInterface
 {
@@ -60,6 +61,27 @@ class ForumController extends AbstractController implements ControllerInterface
             "meta_description" => "Liste des messages dans " . $topic,
             "data" => [
                 "topic" => $topic,
+                "posts" => $posts,
+            ]
+        ];
+
+    }
+
+    public function userProfile($id)
+    {
+        $userManager = new UserManager();
+        $topicManager = new TopicManager();
+        $postManager = new PostManager();
+        $user = $userManager->findOneById($id);
+        $topics = $topicManager->findTopicsByUser($id);
+        $posts = $postManager->findPostsByUser($id);
+
+        return [
+            "view" => VIEW_DIR . "forum/profil.php",
+            "meta_description" => "Profil de " . $user,
+            "data" => [
+                "user" => $user,
+                "topics" => $topics,
                 "posts" => $posts,
             ]
         ];
