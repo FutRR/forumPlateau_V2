@@ -31,4 +31,19 @@ class UserManager extends Manager
 
     }
 
+    public function findByUsername($username)
+    {
+        $sql = 'SELECT *
+                FROM ".$this->tablename." u
+                WHERE u.username = :username';
+
+        // la requête renvoie un ou enregistrements --> getOneOrNullResult
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ['username' => $username], false),
+            $this->className
+        );
+    }
+
+
 }
