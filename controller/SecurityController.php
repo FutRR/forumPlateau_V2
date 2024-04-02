@@ -4,6 +4,7 @@ namespace Controller;
 use App\AbstractController;
 use App\ControllerInterface;
 use App\DAO;
+use Model\Managers\UserManager;
 
 class SecurityController extends AbstractController
 {
@@ -21,6 +22,7 @@ class SecurityController extends AbstractController
     {
         if (isset($_POST["submit"])) {
 
+            $userManager = new UserManager;
 
             $username = filter_var(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_var(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -28,7 +30,7 @@ class SecurityController extends AbstractController
             $password2 = filter_var(INPUT_POST, 'password2', FILTER_SANITIZE_SPECIAL_CHARS);
 
             if ($username && $email && $password1 && $password2) {
-                
+                $checkEmail = $userManager->findByEmail($email) ? $userManager->findByEmail($email) : false;
             }
 
         }
