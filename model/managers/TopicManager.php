@@ -45,6 +45,21 @@ class TopicManager extends Manager
         );
     }
 
+    public function findCategoryByTopic($id)
+    {
+        $sql = "SELECT *
+                FROM category
+                INNER JOIN topic ON category.id_category = topic.category_id
+                WHERE id_topic = :id";
+
+        // la requête renvoie plusieurs enregistrements --> getMultipleResults
+        return $this->getMultipleResults(
+            DAO::select($sql, ['id' => $id]),
+            $this->className
+        );
+
+    }
+
     public function deleteTopic($id)
     {
         $sql = "DELETE FROM post

@@ -3,7 +3,9 @@ $category = $result["data"]['category'];
 $topics = $result["data"]['topics'];
 ?>
 
-<h1>Liste des topics</h1>
+<h1>
+    <?= $category->getName() ?>
+</h1>
 
 <?php
 

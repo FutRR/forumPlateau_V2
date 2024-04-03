@@ -1,8 +1,14 @@
 <?php
 $topic = $result["data"]['topic'];
 $posts = $result["data"]['posts'];
+$category = $result["data"]['category'];
 ?>
 
+<h3>
+    <a href="index.php?ctrl=forum&action=listTopicsByCatgeory&id=<?= $category->getId() ?>">
+        <?= $category->getName() ?>
+    </a>
+</h3>
 <h1>
     <?= $topic->getTitle() ?>
 </h1>
