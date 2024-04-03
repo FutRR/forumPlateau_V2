@@ -138,5 +138,27 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
+    public function addCategory()
+    {
+        $categoryManager = new CategoryManager();
+
+        if (isset($_SESSION['user'])) {
+            if (isset($_POST['submit'])) {
+
+                $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+
+                if ($name) {
+
+                    $categoryManager->add(['name' => $name]);
+                    header("Location: index.php?ctrl=forum&action=index");
+                    Session::addFlash('success', 'Categorie créée !');
+                }
+            }
+        }
+        return [
+            "view" => VIEW_DIR . "forum/listCategories.php",
+        ];
+
+    }
 
 }

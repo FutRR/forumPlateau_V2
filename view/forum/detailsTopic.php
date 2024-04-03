@@ -13,7 +13,7 @@ if (isset($posts)) {
     foreach ($posts as $post) { ?>
         <p>
             <?= $post->getContenu(); ?>
-            par
+            - par
             <a href="index.php?ctrl=forum&action=userProfile&id=<?= $post->getUser()->getId() ?>">
                 <?= $post->getUser() ?>
             </a> publié le

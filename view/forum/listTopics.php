@@ -47,4 +47,4 @@ if (isset($_SESSION['user'])) {
             </form>
         </div>
     </div>
-<?php } ?>
+<?php }
