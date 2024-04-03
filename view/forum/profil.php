@@ -1,30 +1,37 @@
 <?php
 $profil = $result['data']['user'];
 $topics = $result['data']['topics'];
-$posts = $result['data']['posts']
-    ?>
+$posts = $result['data']['posts'];
 
-<h1>
-    Profil de
-    <?= $profil->getUsername() ?>
-</h1>
 
-<p>Membre depuis le
-    <?= $profil->displayRegisterDate() ?>
-</p>
-<?php
 $user = $_SESSION['user'];
 if (serialize($user) == serialize($profil)) { ?>
     <div class="infos-perso">
+        <h1>Votre profil</h1>
+        <h3>
+            <?= $user->getUsername(); ?>
+        </h3>
+        <p>Inscris depuis le
+            <?= $user->displayRegisterDate() ?>
+        </p>
         <p>Email :
             <?= $user->getEmail() ?>
         </p>
         <p></p>
     </div>
 
+<?php } else { ?>
+
+    <h1>
+        Profil de
+        <?= $profil->getUsername() ?>
+    </h1>
+
+    <p>Membre depuis le
+        <?= $profil->displayRegisterDate() ?>
+    </p>
 
 <?php } ?>
-
 <h2>Topics créés</h2>
 
 <?php

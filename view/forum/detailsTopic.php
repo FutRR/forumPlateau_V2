@@ -19,6 +19,13 @@ if (isset($posts)) {
             </a> publié le
             <?= $post->displayDateMessage() ?> à
             <?= $post->displayHeureMessage() ?>
+            <?php
+            $user = $_SESSION['user'];
+            if (serialize($user) == serialize($post->getUser())) { ?>
+                <a class='btn btn-danger p-1'
+                    href="index.php?ctrl=forum&action=deletePost&post_id=<?= $post->getId() ?>&topic_id=<?= $topic->getId(); ?>"><i
+                        class="fa-solid fa-x"></i></a>
+            <?php } ?>
         </p>
     <?php }
 } else { ?>

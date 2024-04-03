@@ -18,6 +18,15 @@ if (isset($topics)) {
             </a> / créé le
             <?= $topic->displayDateCreation(); ?> à
             <?= $topic->displayHeureCreation(); ?>
+
+            <?php
+            $user = $_SESSION['user'];
+            if (serialize($user) == serialize($topic->getUser())) { ?>
+                <a class='btn btn-danger p-1'
+                    href="index.php?ctrl=forum&action=deleteTopic&cat_id=<?= $category->getId() ?>&topic_id=<?= $topic->getId(); ?>"><i
+                        class="fa-solid fa-x"></i></a>
+                <?php
+            } ?>
         </p>
     <?php }
 } else { ?>

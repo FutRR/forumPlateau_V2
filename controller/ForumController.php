@@ -161,4 +161,41 @@ class ForumController extends AbstractController implements ControllerInterface
 
     }
 
+    public function deleteTopic()
+    {
+        $topicManager = new TopicManager();
+
+        if (isset($_GET['cat_id']) && isset($_GET['topic_id'])) {
+
+            $catId = $_GET['cat_id'];
+            $id = $_GET['topic_id'];
+
+            $topicManager->deleteTopic($id);
+            $topicManager->delete($id);
+            Session::addFlash('success', 'Topic Supprimé');
+            $this->redirectTo("forum", "listTopicsByCategory", $catId);
+        }
+        return [
+            "view" => VIEW_DIR . "forum/listTopics.php",
+        ];
+
+    }
+
+    public function deletePost()
+    {
+        $postManager = new PostManager();
+
+        if (isset($_GET['post_id']) && isset($_GET['topic_id'])) {
+
+            $topicId = $_GET['topic_id'];
+            $id = $_GET['post_id'];
+
+
+            $postManager->delete($id);
+            Session::addFlash('success', 'Post supprimé !');
+            $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+        }
+    }
+
+
 }
