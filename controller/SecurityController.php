@@ -61,7 +61,7 @@ class SecurityController extends AbstractController
         }
 
         return [
-            "meta_description" => "Inscription",
+            "meta_description" => "Inscription au forum",
             "view" => VIEW_DIR . "security/register.php",
         ];
 
@@ -77,22 +77,39 @@ class SecurityController extends AbstractController
 
             if ($username && $password) {
 
-                $hash = password_hash($password, PASSWORD_DEFAULT);
-                if (password_verify($password, $hash)) {
-                    echo "correspond";
+                $user = $userManager->findOneByUsername($username);
+
+                if ($user) {
+                    $hash = $user->getPassword();
+
+                    if (password_verify($password, $hash)) {
+                        $_SESSION["user"] = $user;
+                        $this->redirectTo('home', 'index');
+                    } else {
+                        Session::addFlash('error', 'Mot de passe invalide!');
+                        $this->redirectTo('security', 'login');
+                    }
+
                 } else {
-                    "error";
+                    Session::addFlash("error", "Nom d'utilisateur ou mot de passe invalide!");
+                    $this->redirectTo('security', 'login');
                 }
+
+            } else {
+                Session::addFlash("error", "Nom d'utilisateur ou mot de passe invalide!");
+                $this->redirectTo('security', 'login');
             }
 
         }
         return [
-            "meta_description" => "Connection",
+            "meta_description" => "Connection au forum",
             "view" => VIEW_DIR . "security/login.php",
         ];
 
     }
     public function logout()
     {
+        unset($_SESSION['user']);
+        $this->redirectTo('home', 'index');
     }
 }

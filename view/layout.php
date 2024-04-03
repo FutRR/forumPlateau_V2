@@ -42,7 +42,8 @@
                         // si l'utilisateur est connecté 
                         if (App\Session::getUser()) {
                             ?>
-                            <a class="btn btn-primary" href="index.php?ctrl=security&action=profile"><span
+                            <a class="btn btn-primary"
+                                href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>"><span
                                     class="fas fa-user"></span>&nbsp;
                                 <?= App\Session::getUser() ?>
                             </a>
@@ -52,11 +53,12 @@
                             ?>
                             <a class="btn btn-secondary m-1" href="index.php?ctrl=security&action=login">Connexion</a>
                             <a class="btn btn-secondary m-1" href="index.php?ctrl=security&action=register">Inscription</a>
-                            <a class="btn btn-secondary m-1" href="index.php?ctrl=forum&action=index">Liste des
-                                catégories</a>
                             <?php
                         }
                         ?>
+                        <a class="btn btn-secondary m-1" href="index.php?ctrl=forum&action=index">Liste des
+                            catégories</a>
+
                 </nav>
                 </nav>
             </header>

@@ -148,10 +148,20 @@ final class User extends Entity
         return $date->format('d/m/Y');
     }
 
-
     public function __toString()
     {
         return $this->username;
     }
+
+
+    public function hasRole($role)
+    {
+        if ($this->getRole() === $role) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }

@@ -44,4 +44,17 @@ class UserManager extends Manager
         );
     }
 
+    public function findHashByUsername($username)
+    {
+        $sql = "SELECT password
+                FROM $this->tableName
+                WHERE user.username = :username";
+        // la requête renvoie un ou enregistrements --> getOneOrNullResult
+
+        return $this->getOneOrNullResult(
+            DAO::select($sql, ['username' => $username], false),
+            $this->className
+        );
+    }
+
 }
