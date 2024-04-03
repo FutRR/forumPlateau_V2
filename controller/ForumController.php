@@ -113,4 +113,30 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
+    public function addpost($id)
+    {
+        $userManager = new UserManager();
+        $postManager = new PostManager();
+
+        $userId = $_SESSION['user']->getId();
+
+        if (isset($_SESSION['user'])) {
+            if (isset($_POST['submit'])) {
+
+                $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
+
+                if ($contenu) {
+
+                    $postManager->add(['contenu' => $contenu, 'topic_id' => $id, 'user_id' => $userId]);
+                    header("Location: index.php?ctrl=forum&action=listPostsByTopic&id=$id");
+                    Session::addFlash('success', 'Post créé !');
+                }
+            }
+        }
+        return [
+            "view" => VIEW_DIR . "forum/detailsTopic.php",
+        ];
+    }
+
+
 }
