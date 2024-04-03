@@ -24,7 +24,7 @@ if (isset($topics)) {
             <?php
             $user = $_SESSION['user'];
             if (serialize($user) == serialize($topic->getUser())) { ?>
-                <a class='btn btn-danger p-1'
+                <a class='delete-btn btn btn-danger p-1'
                     href="index.php?ctrl=forum&action=deleteTopic&cat_id=<?= $category->getId() ?>&topic_id=<?= $topic->getId(); ?>"><i
                         class="fa-solid fa-x"></i></a>
                 <?php
