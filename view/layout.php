@@ -27,9 +27,9 @@
                 <?= App\Session::getFlash("success") ?>
             </h3>
             <header>
-                <nav class="navbar navbar-expand-lg mb-5">
+                <nav class="navbar mb-5">
                     <div id="nav-left">
-                        <a class="btn btn-primary m-1" href="index.php"><i class="fa-solid fa-house"></i></a>
+                        <a class="btn btn-primary m-1" href="index.php"><i class="fa-solid fa-house"></i> Accueil</a>
                         <?php
                         if (App\Session::isAdmin()) {
                             ?>

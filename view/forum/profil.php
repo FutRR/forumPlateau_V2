@@ -12,6 +12,18 @@ $posts = $result['data']['posts']
 <p>Membre depuis le
     <?= $profil->displayRegisterDate() ?>
 </p>
+<?php
+$user = $_SESSION['user'];
+if (serialize($user) == serialize($profil)) { ?>
+    <div class="infos-perso">
+        <p>Email :
+            <?= $user->getEmail() ?>
+        </p>
+        <p></p>
+    </div>
+
+
+<?php } ?>
 
 <h2>Topics créés</h2>
 
@@ -61,4 +73,4 @@ if (isset($topics)) {
 
     <p>0 posts postés</p>
 
-<?php } ?>
+<?php }
