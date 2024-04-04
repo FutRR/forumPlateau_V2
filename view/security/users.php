@@ -11,7 +11,12 @@ if (!App\Session::isAdmin()) { ?>
     <?php foreach ($users as $user) { ?>
         <ul class="container container-fluid">
             <li>
-                <p>Nom d'utilisateur :
+                <?php $profil = $_SESSION['user'];
+                if (serialize($user) == serialize($profil)) { ?>
+                    <p> <strong>Votre profil</strong> :
+                    <?php } else { ?>
+                    <p>Nom d'utilisateur :
+                    <?php } ?>
                     <a href="index.php?ctrl=forum&action=userProfile&id=<?= $user->getId() ?>">
                         <?= $user->getUsername() ?>
                     </a>
