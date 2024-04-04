@@ -31,4 +31,23 @@ class HomeController extends AbstractController implements ControllerInterface
             ]
         ];
     }
+
+    public function rules()
+    {
+        return [
+            "view" => VIEW_DIR . "rules.php",
+            "meta_description" => "Règles du forum",
+
+        ];
+    }
+
+    public function legal()
+    {
+        return [
+            "view" => VIEW_DIR . "legal.php",
+            "meta_description" => "Mentions légales",
+
+        ];
+    }
+
 }
