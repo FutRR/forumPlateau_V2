@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="m-5" id="wrapper">
+    <div class="mb-5 mx-5" id="wrapper">
         <div id="mainpage">
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
             <h3 class="message" style="color: red">
@@ -24,40 +24,54 @@
                 <?= App\Session::getFlash("success") ?>
             </h3>
             <header>
-                <nav class="navbar mb-5">
-                    <div id="nav-left">
-                        <a class="btn btn-primary m-1" href="index.php"><i class="fa-solid fa-house"></i> Accueil</a>
-                        <?php
-                        if (App\Session::isAdmin()) {
-                            ?>
-                            <a class="btn btn-primary m-1" href="index.php?ctrl=home&action=users">Voir la liste des
-                                utilisateurs</a>
-                        <?php } ?>
-                        <a class="btn btn-secondary m-1" href="index.php?ctrl=forum&action=index">Liste des
-                            catégories</a>
+                <nav class="navbar navbar-expand-lg mb-5">
+                    <div class="container-fluid d-flex align-items-center justify-content-between">
 
+                        <div id="nav-left">
+                            <a class="navbar-br home" href="index.php?ctrl=home"><img
+                                    class="logo d-iflex align-items-center" src="public/img/logo/ForumV12.png"
+                                    alt=""></a>
+                            </li>
+                            <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                href="index.php">Accueil</a></li>
+                            <?php
+                            // si l'utiliseur connecté est un admin
+                            if (App\Session::isAdmin()) {
+                                ?>
+                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                    href="index.php?ctrl=home&action=users">Voir la
+                                    liste des
+                                    utilisateurs</a></li>
+                            <?php } ?>
+                            <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                href="index.php?ctrl=forum&action=index">Catégories</a></li>
+                        </div>
+
+                        <div id="nav-right" class='d-flex justify-content-around'>
+                            <?php
+                            // si l'utilisateur est connecté 
+                            if (App\Session::getUser()) {
+                                ?>
+                                <a class="link-dark nav-item nav-link m-1 fs-3"
+                                    href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>"><img
+                                        style='width: 50px;'
+                                        src="public/img/avatar/<?= App\Session::getUser()->getAvatar() ?>" alt="">
+                                </a></li>
+                                <!-- <span class="fas fa-user"></span>&nbsp; -->
+                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                    href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
+                                <?php
+                            } else {
+                                ?>
+                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                    href="index.php?ctrl=security&action=login">Connexion</a></li>
+                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                    href="index.php?ctrl=security&action=register">Inscription</a></li>
+                                <?php
+                            }
+                            ?>
+                        </div>
                     </div>
-                    <div id="nav-right">
-                        <?php
-                        // si l'utilisateur est connecté 
-                        if (App\Session::getUser()) {
-                            ?>
-                            <a class="btn btn-primary"
-                                href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>"><span
-                                    class="fas fa-user"></span>&nbsp;
-                                <?= App\Session::getUser() ?>
-                            </a>
-                            <a class="btn btn-secondary m-1" href="index.php?ctrl=security&action=logout">Déconnexion</a>
-                            <?php
-                        } else {
-                            ?>
-                            <a class="btn btn-secondary m-1" href="index.php?ctrl=security&action=login">Connexion</a>
-                            <a class="btn btn-secondary m-1" href="index.php?ctrl=security&action=register">Inscription</a>
-                            <?php
-                        }
-                        ?>
-
-                </nav>
                 </nav>
             </header>
 
@@ -79,14 +93,14 @@
         </script>
     <script>
         $(document).ready(function () {
-            $(".message").each(function () {
-                console.log($(this).text())
-                if ($(this).text().length > 2) {
-                    $(this).slideDown(500, function () {
-                        $(this).delay(3000).slideUp(500)
-                    })
-                }
-            })
+            // $(".message").each(function () {
+            //     console.log($(this).text())
+            //     if ($(this).text().length > 2) {
+            //         $(this).slideDown(500, function () {
+            //             $(this).delay(3000).slideUp(500)
+            //         })
+            //     }
+            // })
             $(".delete-btn").on("click", function () {
                 return confirm("Etes-vous sûr de vouloir supprimer?")
             })

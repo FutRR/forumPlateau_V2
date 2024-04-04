@@ -3,25 +3,28 @@ $profil = $result['data']['user'];
 $topics = $result['data']['topics'];
 $posts = $result['data']['posts'];
 
+if (isset($_SESSION['$user'])) {
+    $user = $_SESSION['user'];
+    if (serialize($user) == serialize($profil)) { ?>
 
-$user = $_SESSION['user'];
-if (serialize($user) == serialize($profil)) { ?>
-    <div class="infos-perso">
-        <h1>Votre profil</h1>
-        <h3>
-            <?= $user->getUsername(); ?>
-            <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
-        </h3>
-        <p>Inscris depuis le
-            <?= $user->displayRegisterDate() ?>
-        </p>
-        <p>Email :
-            <?= $user->getEmail() ?>
-        </p>
-        <p></p>
-    </div>
+        <div class="infos-perso">
+            <h1>Votre profil</h1>
+            <h3>
+                <?= $user->getUsername(); ?>
+                <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
+            </h3>
+            <p>Inscris depuis le
+                <?= $user->displayRegisterDate() ?>
+            </p>
+            <p>Email :
+                <?= $user->getEmail() ?>
+            </p>
+            <p></p>
+        </div>
 
-<?php } else { ?>
+    <?php }
+
+} else { ?>
 
     <h1>
         Profil de
@@ -34,6 +37,7 @@ if (serialize($user) == serialize($profil)) { ?>
     </p>
 
 <?php } ?>
+
 <h2>Topics créés</h2>
 
 <?php

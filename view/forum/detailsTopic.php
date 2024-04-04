@@ -17,25 +17,31 @@ $category = $result["data"]['category'];
 if (isset($posts)) {
 
     foreach ($posts as $post) { ?>
-        <div class="container bg-secondary-subtle p-2 m-2">
-            <p>
-                <?= $post->getContenu(); ?>
-                - par
-                <a href="index.php?ctrl=forum&action=userProfile&id=<?= $post->getUser()->getId() ?>">
-                    <?= $post->getUser() ?>
-                </a> publié le
-                <?= $post->displayDateMessage() ?> à
-                <?= $post->displayHeureMessage() ?>
-                <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $post->getUser()->getAvatar() ?>"
-                    alt="">
+        <div class="d-flex bg-light py-2 my-5 border border-dark-subtle rounded">
+            <div class="d-flex m-2"> <img class="img-fluid img-thumbnail rounded w-5"
+                    src="public/img/avatar/<?= $post->getUser()->getAvatar() ?>" alt="">
+            </div>
+            <div class="d-flex flex-column">
+                <p>
+                    <?= $post->getContenu(); ?>
+                </p>
+                <p>par
+                    <a href="index.php?ctrl=forum&action=userProfile&id=<?= $post->getUser()->getId() ?>">
+                        <?= $post->getUser() ?>
+                    </a> publié le
+                    <?= $post->displayDateMessage() ?> à
+                    <?= $post->displayHeureMessage() ?>
+                </p>
+
                 <?php
-                $user = $_SESSION['user'];
-                if (serialize($user) == serialize($post->getUser())) { ?>
-                    <a class='delete-btn btn btn-danger p-1'
-                        href="index.php?ctrl=forum&action=deletePost&post_id=<?= $post->getId() ?>&topic_id=<?= $topic->getId(); ?>"><i
-                            class="fa-solid fa-x"></i></a>
-                <?php } ?>
-            </p>
+                if (isset($_SESSION['user'])) {
+                    $user = $_SESSION['user'];
+                    if (serialize($user) == serialize($post->getUser())) { ?>
+                        <a class='delete-btn btn btn-danger p-1'
+                            href="index.php?ctrl=forum&action=deletePost&post_id=<?= $post->getId() ?>&topic_id=<?= $topic->getId(); ?>">Supprimer</i></a>
+                    <?php }
+                } ?>
+            </div>
         </div>
     <?php }
 } else { ?>
@@ -54,13 +60,13 @@ if (isset($_SESSION['user'])) {
                 <p>
                     <label class="form-label">
                         Contenu :
-                        <textarea name="contenu" rows='5' col='33' class="form-control"></textarea>
+                        <textarea name="contenu" rows='5' col='33' class="form-control" style='resize: none'></textarea>
                     </label>
                 </p>
 
                 <p>
                     <label class="form-label">
-                        <input class="btn btn-primary" type="submit" name="submit" value="Poster">
+                        <input class="btn btn-dark" type="submit" name="submit" value="Poster">
                     </label>
                 </p>
             </form>

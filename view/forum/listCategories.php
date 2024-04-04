@@ -6,9 +6,12 @@ $categories = $result["data"]['categories'];
 
 <?php
 foreach ($categories as $category) { ?>
-    <p><a href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>">
-            <?= $category->getName() ?>
-        </a></p>
+    <div class="d-flex col-md-auto fs-2">
+        <p><a class='link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover'
+                href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>">
+                <?= $category->getName() ?>
+            </a></p>
+    </div>
 <?php }
 
 if (App\Session::isAdmin()) {
@@ -16,7 +19,7 @@ if (App\Session::isAdmin()) {
 
     <p>Ajouter un categorie : </p>
 
-    <div class="container-fluid">
+    <div class="container-sm">
         <div class="col align-self-center">
             <form action="index.php?ctrl=forum&action=addCategory" method="POST" enctype="multipart/form-data"
                 class="mb-3 mx-auto">
@@ -29,7 +32,7 @@ if (App\Session::isAdmin()) {
 
                 <p>
                     <label class="form-label">
-                        <input class="btn btn-primary" type="submit" name="submit" value="Créer">
+                        <input class="btn btn-dark" type="submit" name="submit" value="Créer">
                     </label>
                 </p>
             </form>

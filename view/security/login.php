@@ -20,7 +20,7 @@
 
             <p>
                 <label class="form-label">
-                    <input class="btn btn-primary" type="submit" name="submit" value="Se Connecter">
+                    <input class="btn btn-dark" type="submit" name="submit" value="Se Connecter">
                 </label>
             </p>
         </form>
