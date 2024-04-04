@@ -16,6 +16,7 @@ final class User extends Entity
     private string $password;
     private \DateTime $registerDate;
     private string $role;
+    private string $avatar;
 
 
     public function __construct($data)
@@ -142,6 +143,26 @@ final class User extends Entity
         return $this;
     }
 
+    /**
+     * Get the value of avatar
+     */
+    public function getAvatar(): string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set the value of avatar
+     *
+     * @return  self
+     */
+    public function setAvatar(string $avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
     public function displayRegisterDate()
     {
         $date = $this->getRegisterDate();
@@ -160,6 +181,4 @@ final class User extends Entity
             return true;
         }
     }
-
-
 }

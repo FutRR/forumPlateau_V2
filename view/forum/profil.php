@@ -10,6 +10,7 @@ if (serialize($user) == serialize($profil)) { ?>
         <h1>Votre profil</h1>
         <h3>
             <?= $user->getUsername(); ?>
+            <img src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
         </h3>
         <p>Inscris depuis le
             <?= $user->displayRegisterDate() ?>
@@ -22,10 +23,13 @@ if (serialize($user) == serialize($profil)) { ?>
 
 <?php } else { ?>
 
-    <h1>
-        Profil de
-        <?= $profil->getUsername() ?>
-    </h1>
+    <div>
+        <h1>
+            Profil de
+            <?= $profil->getUsername() ?>
+        </h1>
+        <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
+    </div>
 
     <p>Membre depuis le
         <?= $profil->displayRegisterDate() ?>

@@ -33,6 +33,9 @@
                             <a class="btn btn-primary m-1" href="index.php?ctrl=home&action=users">Voir la liste des
                                 utilisateurs</a>
                         <?php } ?>
+                        <a class="btn btn-secondary m-1" href="index.php?ctrl=forum&action=index">Liste des
+                            catégories</a>
+
                     </div>
                     <div id="nav-right">
                         <?php
@@ -53,8 +56,6 @@
                             <?php
                         }
                         ?>
-                        <a class="btn btn-secondary m-1" href="index.php?ctrl=forum&action=index">Liste des
-                            catégories</a>
 
                 </nav>
                 </nav>

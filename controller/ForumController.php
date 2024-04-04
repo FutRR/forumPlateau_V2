@@ -203,4 +203,23 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
 
+    public function updateCategory($id)
+    {
+        $categoryManager = new categoryManager();
+
+        if ($_POST['submit']) {
+            $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            if ($name) {
+
+                $categoryManager->update(['name' => $name]);
+                header("Location: index.php?ctrl=forum&action=index");
+                Session::addFlash('success', 'Categorie créée !');
+            }
+        }
+        return [
+            "view" => VIEW_DIR . "forum/listCategories.php",
+        ];
+    }
+
 }

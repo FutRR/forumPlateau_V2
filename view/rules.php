@@ -3,5 +3,6 @@
 <ol>
     <li>Be nice</li>
     <li>Be brave</li>
-    <li>I tire of mead... I thirst for BLOOOOOD</li>
+    <li><a href="https://www.youtube.com/watch?v=KMhMwhFGiI4" target="_blank">I tire of mead... I thirst for
+            BLOOOOOD</a></li>
 </ol>
