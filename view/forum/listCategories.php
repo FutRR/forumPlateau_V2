@@ -11,7 +11,7 @@ foreach ($categories as $category) { ?>
         </a></p>
 <?php }
 
-if (isset($_SESSION['user'])) {
+if (App\Session::isAdmin()) {
     ?>
 
     <p>Ajouter un categorie : </p>
