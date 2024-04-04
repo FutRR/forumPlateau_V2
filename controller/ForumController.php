@@ -94,6 +94,7 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $userManager = new UserManager();
         $topicManager = new TopicManager();
+        $postManager = new PostManager();
 
         $userId = $_SESSION['user']->getId();
 
@@ -101,10 +102,12 @@ class ForumController extends AbstractController implements ControllerInterface
             if (isset($_POST['submit'])) {
 
                 $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+                $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
 
-                if ($title) {
+                if ($title && $contenu) {
 
-                    $topicManager->add(['title' => $title, 'category_id' => $id, 'user_id' => $userId]);
+                    $idtopic = $topicManager->add(['title' => $title, 'category_id' => $id, 'user_id' => $userId]);
+                    $postManager->add(['contenu' => $contenu, 'user_id' => $userId, 'topic_id' => $idtopic]);
                     header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$id");
                     Session::addFlash('success', 'Topic créé !');
                 }

@@ -52,6 +52,13 @@ if (isset($_SESSION['user'])) {
 
                 <p>
                     <label class="form-label">
+                        Contenu :
+                        <textarea name="contenu" rows='5' col='33' class="form-control"></textarea>
+                    </label>
+                </p>
+
+                <p>
+                    <label class="form-label">
                         <input class="btn btn-primary" type="submit" name="submit" value="Poster">
                     </label>
                 </p>
