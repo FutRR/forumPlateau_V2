@@ -34,7 +34,7 @@
                         if (App\Session::isAdmin()) {
                             ?>
                             <a class="btn btn-primary m-1" href="index.php?ctrl=home&action=users">Voir la liste des
-                                gens</a>
+                                utilisateurs</a>
                         <?php } ?>
                     </div>
                     <div id="nav-right">
