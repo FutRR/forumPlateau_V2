@@ -17,22 +17,26 @@ $category = $result["data"]['category'];
 if (isset($posts)) {
 
     foreach ($posts as $post) { ?>
-        <p>
-            <?= $post->getContenu(); ?>
-            - par
-            <a href="index.php?ctrl=forum&action=userProfile&id=<?= $post->getUser()->getId() ?>">
-                <?= $post->getUser() ?>
-            </a> publié le
-            <?= $post->displayDateMessage() ?> à
-            <?= $post->displayHeureMessage() ?>
-            <?php
-            $user = $_SESSION['user'];
-            if (serialize($user) == serialize($post->getUser())) { ?>
-                <a class='delete-btn btn btn-danger p-1'
-                    href="index.php?ctrl=forum&action=deletePost&post_id=<?= $post->getId() ?>&topic_id=<?= $topic->getId(); ?>"><i
-                        class="fa-solid fa-x"></i></a>
-            <?php } ?>
-        </p>
+        <div class="container bg-secondary-subtle p-2 m-2">
+            <p>
+                <?= $post->getContenu(); ?>
+                - par
+                <a href="index.php?ctrl=forum&action=userProfile&id=<?= $post->getUser()->getId() ?>">
+                    <?= $post->getUser() ?>
+                </a> publié le
+                <?= $post->displayDateMessage() ?> à
+                <?= $post->displayHeureMessage() ?>
+                <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $post->getUser()->getAvatar() ?>"
+                    alt="">
+                <?php
+                $user = $_SESSION['user'];
+                if (serialize($user) == serialize($post->getUser())) { ?>
+                    <a class='delete-btn btn btn-danger p-1'
+                        href="index.php?ctrl=forum&action=deletePost&post_id=<?= $post->getId() ?>&topic_id=<?= $topic->getId(); ?>"><i
+                            class="fa-solid fa-x"></i></a>
+                <?php } ?>
+            </p>
+        </div>
     <?php }
 } else { ?>
     <p>Aucun Post</p>
