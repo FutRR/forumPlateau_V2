@@ -34,7 +34,7 @@ if (!App\Session::isAdmin()) { ?>
                         class="ban-btn btn btn-outline-warning">Ban</a>
                 <?php } else { ?>
                     <a href="index.php?ctrl=security&action=unBan&id=<?= $user->getId() ?>"
-                        class="ban-btn btn btn-outline-warning">Unban</a>
+                        class="unban-btn btn btn-outline-warning">Unban</a>
                 <?php } ?>
 
             </li>

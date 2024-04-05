@@ -9,7 +9,7 @@ $category = $result['data']['category'];
         <p>
             <label class="form-label">
                 Nom :
-                <input type="text" name="name" class="form-control" placeholder="<?= $category->getName() ?>">
+                <input type="text" name="name" class="form-control" value="<?= $category->getName() ?>">
             </label>
         </p>
 

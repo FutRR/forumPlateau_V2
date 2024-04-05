@@ -11,7 +11,7 @@ class HomeController extends AbstractController implements ControllerInterface
     public function index()
     {
         return [
-            "view" => VIEW_DIR . "home.php",
+            "view" => VIEW_DIR . "home/home.php",
             "meta_description" => "Page d'accueil du forum"
         ];
     }
@@ -35,7 +35,7 @@ class HomeController extends AbstractController implements ControllerInterface
     public function rules()
     {
         return [
-            "view" => VIEW_DIR . "rules.php",
+            "view" => VIEW_DIR . "home/rules.php",
             "meta_description" => "Règles du forum",
 
         ];
@@ -44,7 +44,7 @@ class HomeController extends AbstractController implements ControllerInterface
     public function legal()
     {
         return [
-            "view" => VIEW_DIR . "legal.php",
+            "view" => VIEW_DIR . "home/legal.php",
             "meta_description" => "Mentions légales",
 
         ];

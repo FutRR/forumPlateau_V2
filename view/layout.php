@@ -110,6 +110,10 @@
             $(".ban-btn").on("click", function () {
                 return confirm("Etes-vous sûr de vouloir bannir cet utilisateur ?")
             })
+            $(".unban-btn").on("click", function () {
+                return confirm("Etes-vous sûr de vouloir débannir cet utilisateur ?")
+            })
+
             tinymce.init({
                 selector: '.post',
                 menubar: false,

@@ -230,4 +230,33 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
+    public function updateTopic($id)
+    {
+        $topicManager = new topicManager();
+        $topic = $topicManager->findOneById($id);
+
+
+        if (isset($_POST['submit'])) {
+            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            if ($title) {
+
+                $data = "title = '" . $title . "'";
+
+                $topicManager->updateTopic($data, $id);
+                $this->redirectTo('forum', 'detailsTopic');
+                header("Location: index.php?ctrl=forum&action=listPostsByTopic&id=$id");
+                Session::addFlash('success', 'Topic modifié !');
+            }
+        }
+        return [
+            "view" => VIEW_DIR . "forum/updateTopic.php",
+            "meta_description" => "Modification de topic",
+            "data" => [
+                "topic" => $topic,
+            ]
+        ];
+    }
+
+
 }

@@ -11,6 +11,13 @@ $category = $result["data"]['category'];
 </h3>
 <h1>
     <?= $topic->getTitle() ?>
+    <?php
+    if (App\Session::isAdmin() || App\Session::getUser() == $topic->getUser()) { ?>
+
+        <a href="index.php?ctrl=forum&action=updateTopic&id=<?= $topic->getId() ?>"
+            class="btn btn-outline-dark py=1">Modifier</a>
+    <?php } ?>
+
 </h1>
 
 <?php
