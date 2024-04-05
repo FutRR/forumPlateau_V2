@@ -37,7 +37,7 @@ if (isset($posts)) {
                 if (isset($_SESSION['user'])) {
                     $user = $_SESSION['user'];
                     if (serialize($user) == serialize($post->getUser())) { ?>
-                        <a class='delete-btn btn btn-danger p-1'
+                        <a class='delete-btn btn btn-outline-danger p-1'
                             href="index.php?ctrl=forum&action=deletePost&post_id=<?= $post->getId() ?>&topic_id=<?= $topic->getId(); ?>">Supprimer</i></a>
                     <?php }
                 } ?>
@@ -60,13 +60,13 @@ if (isset($_SESSION['user'])) {
                 <p>
                     <label class="form-label">
                         Contenu :
-                        <textarea name="contenu" rows='5' col='33' class="form-control" style='resize: none'></textarea>
+                        <textarea name="contenu" col='30' rows='10' class="form-control"></textarea>
                     </label>
                 </p>
 
                 <p>
                     <label class="form-label">
-                        <input class="btn btn-dark" type="submit" name="submit" value="Poster">
+                        <input class="btn btn-outline-dark" type="submit" name="submit" value="Poster">
                     </label>
                 </p>
             </form>

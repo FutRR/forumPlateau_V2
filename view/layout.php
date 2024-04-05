@@ -39,9 +39,7 @@
                             if (App\Session::isAdmin()) {
                                 ?>
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=home&action=users">Voir la
-                                    liste des
-                                    utilisateurs</a></li>
+                                    href="index.php?ctrl=home&action=users">Utilisateurs</a></li>
                             <?php } ?>
                             <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
                                 href="index.php?ctrl=forum&action=index">Catégories</a></li>
@@ -75,6 +73,11 @@
                 </nav>
             </header>
 
+            <a href="#" class="btn btn-outline-dark btn-floating btn-lg"
+                style="position: fixed; bottom: 20px; right: 20px;">
+                <i class="fas fa-arrow-up"></i>
+            </a>
+
             <main id="forum" class="mt-5 mb-5">
                 <?= $page ?>
             </main>
@@ -103,6 +106,9 @@
             // })
             $(".delete-btn").on("click", function () {
                 return confirm("Etes-vous sûr de vouloir supprimer?")
+            })
+            $(".ban-btn").on("click", function () {
+                return confirm("Etes-vous sûr de vouloir bannir cet utilisateur ?")
             })
             tinymce.init({
                 selector: '.post',

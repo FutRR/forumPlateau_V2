@@ -25,7 +25,7 @@ if (isset($topics)) {
             if (isset($_SESSION['user'])) {
                 $user = $_SESSION['user'];
                 if (serialize($user) == serialize($topic->getUser())) { ?>
-                    <a class='delete-btn btn btn-danger p-1'
+                    <a class='delete-btn btn btn-outline-danger px-2 py-1'
                         href="index.php?ctrl=forum&action=deleteTopic&cat_id=<?= $category->getId() ?>&topic_id=<?= $topic->getId(); ?>"><i
                             class="fa-solid fa-x"></i></a>
                     <?php
@@ -54,7 +54,14 @@ if (isset($_SESSION['user'])) {
 
                 <p>
                     <label class="form-label">
-                        <input class="btn btn-dark" type="submit" name="submit" value="Poster">
+                        Contenu :
+                        <textarea class="form-control" name="contenu" cols="30" rows="10"></textarea>
+                    </label>
+                </p>
+
+                <p>
+                    <label class="form-label">
+                        <input class="btn btn-outline-dark" type="submit" name="submit" value="Poster">
                     </label>
                 </p>
             </form>
