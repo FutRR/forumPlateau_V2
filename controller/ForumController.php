@@ -206,19 +206,27 @@ class ForumController extends AbstractController implements ControllerInterface
     public function updateCategory($id)
     {
         $categoryManager = new categoryManager();
+        $category = $categoryManager->findOneById($id);
 
-        if ($_POST['submit']) {
+
+        if (isset($_POST['submit'])) {
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
 
             if ($name) {
 
-                $categoryManager->update(['name' => $name]);
+                $data = "name = '" . $name . "'";
+
+                $categoryManager->updateCategory($data, $id);
                 header("Location: index.php?ctrl=forum&action=index");
-                Session::addFlash('success', 'Categorie créée !');
+                Session::addFlash('success', 'Categorie modifiée !');
             }
         }
         return [
-            "view" => VIEW_DIR . "forum/listCategories.php",
+            "view" => VIEW_DIR . "forum/updateCategory.php",
+            "meta_description" => "Modification de catégorie",
+            "data" => [
+                "category" => $category,
+            ]
         ];
     }
 

@@ -10,16 +10,23 @@ foreach ($categories as $category) { ?>
         <p><a class='link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover'
                 href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>">
                 <?= $category->getName() ?>
-            </a></p>
+            </a>
+            <?php
+            if (App\Session::isAdmin()) { ?>
+
+                <a href="index.php?ctrl=forum&action=updateCategory&id=<?= $category->getId() ?>"
+                    class="btn btn-outline-dark py=1">Modifier</a>
+            <?php } ?>
+        </p>
     </div>
 <?php }
 
 if (App\Session::isAdmin()) {
     ?>
 
-    <p>Ajouter un categorie : </p>
+    <div>
+        <h2>Ajouter un categorie : </h2>
 
-    <div class="container-sm">
         <div class="col align-self-center">
             <form action="index.php?ctrl=forum&action=addCategory" method="POST" enctype="multipart/form-data"
                 class="mb-3 mx-auto">
@@ -37,7 +44,6 @@ if (App\Session::isAdmin()) {
                 </p>
             </form>
         </div>
-    </div>
-<?php }
+    <?php }
 
 

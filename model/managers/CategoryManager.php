@@ -15,4 +15,13 @@ class CategoryManager extends Manager
     {
         parent::connect();
     }
+
+    public function updateCategory($data, $id)
+    {
+        $sql = "UPDATE category
+                SET " . $data . "
+                WHERE category.id_category = :id";
+
+        return DAO::update($sql, ["id" => $id]);
+    }
 }
