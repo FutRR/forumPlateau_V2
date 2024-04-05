@@ -50,4 +50,13 @@ class Session
         }
         return false;
     }
+
+    public static function isBannedUser()
+    {
+        if (self::getUser() && self::getUser()->isBanned(1)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

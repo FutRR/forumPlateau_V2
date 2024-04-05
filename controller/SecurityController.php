@@ -83,8 +83,13 @@ class SecurityController extends AbstractController
                     $hash = $user->getPassword();
 
                     if (password_verify($password, $hash)) {
-                        $_SESSION["user"] = $user;
-                        $this->redirectTo('home', 'index');
+                        if ($user->getStatus() == 0) {
+                            $_SESSION["user"] = $user;
+                            $this->redirectTo('home', 'index');
+                        } else {
+                            Session::addFlash('error', 'Vous êtes banni');
+                            $this->redirectTo('security', 'login');
+                        }
                     } else {
                         Session::addFlash('error', 'Mot de passe invalide!');
                         $this->redirectTo('security', 'login');
@@ -112,4 +117,29 @@ class SecurityController extends AbstractController
         unset($_SESSION['user']);
         $this->redirectTo('home', 'index');
     }
+
+    public function ban($id)
+    {
+        $userManager = new userManager();
+
+        $data = 1;
+
+        $userManager->banUser($data, $id);
+        Session::addFlash('success', 'Utilisateur banni !');
+
+        $this->redirectTo('home', 'users');
+    }
+
+    public function unBan($id)
+    {
+        $userManager = new userManager();
+
+        $data = 0;
+
+        $userManager->banUser($data, $id);
+        Session::addFlash('success', 'Utilisateur banni !');
+
+        $this->redirectTo('home', 'users');
+    }
+
 }

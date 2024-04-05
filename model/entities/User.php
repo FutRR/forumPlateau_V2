@@ -17,6 +17,7 @@ final class User extends Entity
     private \DateTime $registerDate;
     private string $role;
     private string $avatar;
+    private int $status;
 
 
     public function __construct($data)
@@ -163,6 +164,27 @@ final class User extends Entity
         return $this;
     }
 
+    /**
+     * Get the value of status
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set the value of status
+     *
+     * @return  self
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+
     public function displayRegisterDate()
     {
         $date = $this->getRegisterDate();
@@ -178,6 +200,13 @@ final class User extends Entity
     public function hasRole($role)
     {
         if ($this->getRole() == $role) {
+            return true;
+        }
+    }
+
+    public function isBanned($status)
+    {
+        if ($this->getStatus() == $status) {
             return true;
         }
     }

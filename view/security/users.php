@@ -27,6 +27,16 @@ if (!App\Session::isAdmin()) { ?>
                 <p>Email :
                     <?= $user->getEmail() ?>
                 </p>
+                <?php
+                if ($user->getStatus() == 0) {
+                    ?>
+                    <a href="index.php?ctrl=security&action=ban&id=<?= $user->getId() ?>"
+                        class="ban-btn btn btn-outline-warning">Ban</a>
+                <?php } else { ?>
+                    <a href="index.php?ctrl=security&action=unBan&id=<?= $user->getId() ?>"
+                        class="ban-btn btn btn-outline-warning">Unban</a>
+                <?php } ?>
+
             </li>
         </ul>
     <?php }
