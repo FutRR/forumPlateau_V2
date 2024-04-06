@@ -13,7 +13,7 @@
     <title>FORUM</title>
 </head>
 
-<body>
+<body class="bg-light bg-opacity-75">
     <div class="mb-5 mx-5" id="wrapper">
         <div id="mainpage">
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
@@ -50,12 +50,15 @@
                             // si l'utilisateur est connecté 
                             if (App\Session::getUser()) {
                                 ?>
-                                <a class="link-dark nav-item nav-link m-1 fs-3"
-                                    href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>"><img
-                                        style='width: 50px;'
-                                        src="public/img/avatar/<?= App\Session::getUser()->getAvatar() ?>" alt="">
+                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                    href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">Profil
                                 </a></li>
+
+                                <!-- <img style='width: 50px;' src="public/img/avatar/<?= App\Session::getUser()->getAvatar() ?>"
+                                    alt=""> -->
+
                                 <!-- <span class="fas fa-user"></span>&nbsp; -->
+
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
                                     href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
                                 <?php

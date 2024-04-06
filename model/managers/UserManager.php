@@ -65,4 +65,14 @@ class UserManager extends Manager
         return DAO::update($sql, ['id' => $id]);
     }
 
+    public function updateUser($data, $id)
+    {
+        $sql = "UPDATE user
+                SET " . $data . "
+                WHERE user.id_user = :id";
+
+        return DAO::update($sql, ["id" => $id]);
+
+    }
+
 }

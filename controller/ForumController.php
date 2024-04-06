@@ -258,5 +258,66 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
+    public function updateProfil($id)
+    {
+        $userManager = new UserManager();
+        $user = $userManager->findOneById($id);
+
+
+        if (isset($_POST['submit'])) {
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+
+            $avatar = $user->getAvatar();
+
+            if (!$avatar == 'User-avatar.png') {
+                unlink("public/img/avatar/$avatar");
+            }
+
+            $tmpName = $_FILES['file']['tmp_name'];
+            $name = $_FILES['file']['name'];
+            $size = $_FILES['file']['size'];
+            $error = $_FILES['file']['error'];
+
+            $tabExtension = explode('.', $name);
+            $extension = strtolower(end($tabExtension));
+            //Tableau des extensions que l'on accepte
+            $extensions = ['jpg', 'png', 'jpeg', 'gif', 'webp'];
+            //Taille max que l'on accepte
+            $maxSize = 1500000;
+
+            if ($username && $email) {
+
+                if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                    $uniqueName = uniqid('', true);
+                    //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+                    $file = imagewebp(imagecreatefromstring(file_get_contents($tmpName)), "public/img/avatar/$uniqueName.webp");
+                    //imagewebp donne au fichier un format webp
+
+                    $data = "username = '" . $username . "',
+                        email = '" . $email . "',
+                        avatar = '" . $uniqueName . ".webp'";
+
+
+                    $userManager->updateUser($data, $id);
+
+                    $_SESSION['user']['avatar'] = $user->getAvatar();
+
+                    $this->redirectTo('forum', 'userProfile');
+                    header("Location: index.php?ctrl=forum&action=userProfile&id=$id");
+                    Session::addFlash('success', 'Profil modifié !');
+                }
+
+            }
+        }
+        return [
+            "view" => VIEW_DIR . "forum/updateProfil.php",
+            "meta_description" => "Modification de profil",
+            "data" => [
+                "user" => $user,
+            ]
+        ];
+    }
+
 
 }

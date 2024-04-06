@@ -3,29 +3,48 @@ $profil = $result['data']['user'];
 $topics = $result['data']['topics'];
 $posts = $result['data']['posts'];
 
-if (isset($_SESSION['$user'])) {
-    $user = $_SESSION['user'];
-    if (serialize($user) == serialize($profil)) { ?>
+if (isset($_SESSION['user'])) {
+
+    var_dump($profil);
+    var_dump($_SESSION['user']);
+    if ($_SESSION['user'] == $profil) { ?>
 
         <div class="infos-perso">
             <h1>Votre profil</h1>
             <h3>
-                <?= $user->getUsername(); ?>
+                <?= $profil->getUsername(); ?>
                 <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
             </h3>
             <p>Inscris depuis le
-                <?= $user->displayRegisterDate() ?>
+                <?= $profil->displayRegisterDate() ?>
             </p>
             <p>Email :
-                <?= $user->getEmail() ?>
+                <?= $profil->getEmail() ?>
             </p>
-            <p></p>
+            <?php
+            if (App\Session::getUser() == $profil) { ?>
+
+                <a href="index.php?ctrl=forum&action=updateProfil&id=<?= $profil->getId() ?>"
+                    class="btn btn-outline-dark py=1">Modifier</a>
+            <?php } ?>
+
         </div>
 
+    <?php } else {
+        ?>
+
+        <h1>
+            Profil de
+            <?= $profil->getUsername() ?>
+        </h1>
+        <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
+
+        <p>Membre depuis le
+            <?= $profil->displayRegisterDate() ?>
+        </p>
+
     <?php }
-
 } else { ?>
-
     <h1>
         Profil de
         <?= $profil->getUsername() ?>
