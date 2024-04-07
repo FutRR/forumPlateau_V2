@@ -108,9 +108,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Listage des données de la table forum_maximefutterer.user : ~5 rows (environ)
 INSERT IGNORE INTO `user` (`id_user`, `username`, `email`, `password`, `registerDate`, `role`, `avatar`, `status`) VALUES
 	(2, 'admin1', 'admin@gmail.com', '$2y$10$uFKy8AbYNFOWoNBmCCxbAOXUSuDaY.xHR6yy4.ZjIwwkvPLxeyOp2*', '2024-03-27 15:57:05', 'role_admin', 'User-avatar.png', 0),
-	(3, 'maxime', 'max@exemple.com', '$2y$10$KvI9y0BhIIdPNZgS/F2JXeIpI6NS504D7EABZNMT1NQPwWPHfVcKW', '2024-04-02 15:46:09', 'role_user', '66114cf9d14ed9.80629932.webp', 0),
-	(4, 'admin', 'admin@exemple.com', '$2y$10$Qr0dzTabPQMyFvfukQHJAu.TWAWi2CyxpxJJ8uEBlUoX7iV0hHLsO', '2024-04-03 13:39:40', 'role_admin', '661146fd4c7d18.64343748.webp', 0),
-	(5, 'kev', 'azerty2@gmail.com', '$2y$10$CBbVlbc8YwG7oHHsQcyqX.mtQu/zRBk9eJo4ewr7vF/WSxBKbxb6e', '2024-04-04 10:28:45', 'role_user', 'User-avatar.png', 0),
+	(3, 'maxime', 'max@exemple.com', '$2y$10$KvI9y0BhIIdPNZgS/F2JXeIpI6NS504D7EABZNMT1NQPwWPHfVcKW', '2024-04-02 15:46:09', 'role_user', '6612d649884d09.94515390.webp', 0),
+	(4, 'admin', 'admin@exemple.com', '$2y$10$Qr0dzTabPQMyFvfukQHJAu.TWAWi2CyxpxJJ8uEBlUoX7iV0hHLsO', '2024-04-03 13:39:40', 'role_admin', '.webp', 0),
+	(5, 'kev', 'azerty2@gmail.com', '$2y$10$CBbVlbc8YwG7oHHsQcyqX.mtQu/zRBk9eJo4ewr7vF/WSxBKbxb6e', '2024-04-04 10:28:45', 'role_user', 'User-avatar.png', 1),
 	(6, 'test', 'test@exe.fr', '$2y$10$ldqhEaCZoOkLg3FTyUUHFOxD2A7PpMAzgIorOERi93ijfkP0BrDIW', '2024-04-05 20:41:18', 'role_user', 'User-avatar.png', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
