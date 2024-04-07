@@ -268,12 +268,6 @@ class ForumController extends AbstractController implements ControllerInterface
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
-            $avatar = $user->getAvatar();
-
-            if (!$avatar == 'User-avatar.png') {
-                unlink("public/img/avatar/$avatar");
-            }
-
             $tmpName = $_FILES['file']['tmp_name'];
             $name = $_FILES['file']['name'];
             $size = $_FILES['file']['size'];
@@ -286,29 +280,52 @@ class ForumController extends AbstractController implements ControllerInterface
             //Taille max que l'on accepte
             $maxSize = 1500000;
 
-            if ($username && $email) {
+            // verifying if email is already taken
+            if (!$userManager->findOneByEmail($email)) {
 
-                if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
-                    $uniqueName = uniqid('', true);
-                    //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
-                    $file = imagewebp(imagecreatefromstring(file_get_contents($tmpName)), "public/img/avatar/$uniqueName.webp");
-                    //imagewebp donne au fichier un format webp
+                // verifying if username is already taken
+                if (!$userManager->findOneByUsername($username)) {
 
-                    $data = "username = '" . $username . "',
+                    if ($username && $email) {
+
+                        if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                            $uniqueName = uniqid('', true);
+                            //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+                            $file = imagewebp(imagecreatefromstring(file_get_contents($tmpName)), "public/img/avatar/$uniqueName.webp");
+                            //imagewebp donne au fichier un format webp
+                            $avatar = $user->getAvatar();
+
+                            if ($avatar !== 'User-avatar.png' && file_exists("public/img/avatar/" . $avatar)) {
+                                unlink("public/img/avatar/" . $avatar);
+                            }
+
+                        }
+
+                        $data = "username = '" . $username . "',
                         email = '" . $email . "',
                         avatar = '" . $uniqueName . ".webp'";
 
 
-                    $userManager->updateUser($data, $id);
+                        $userManager->updateUser($data, $id);
 
-                    $_SESSION['user']['avatar'] = $user->getAvatar();
+                        $userUpdated = $userManager->findOneById($id);
 
-                    $this->redirectTo('forum', 'userProfile');
-                    header("Location: index.php?ctrl=forum&action=userProfile&id=$id");
-                    Session::addFlash('success', 'Profil modifié !');
+                        $_SESSION['user'] = $userUpdated;
+
+                        $this->redirectTo('forum', 'userProfile');
+                        header("Location: index.php?ctrl=forum&action=userProfile&id=$id");
+                        Session::addFlash('success', 'Profil modifié !');
+                        exit;
+                    }
+                } else {
+                    Session::addFlash('error', "Nom d'utilisateur déjà pris !");
+                    $this->redirectTo('forum', 'updateProfil');
                 }
-
+            } else {
+                Session::addFlash('error', "Cet adresse email est déjà utilisée !");
+                $this->redirectTo('forum', 'updateProfil');
             }
+
         }
         return [
             "view" => VIEW_DIR . "forum/updateProfil.php",
