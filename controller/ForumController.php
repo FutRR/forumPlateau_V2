@@ -268,64 +268,112 @@ class ForumController extends AbstractController implements ControllerInterface
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
-            $tmpName = $_FILES['file']['tmp_name'];
-            $name = $_FILES['file']['name'];
-            $size = $_FILES['file']['size'];
-            $error = $_FILES['file']['error'];
+            $avatarChanged = false;
+            $avatar = $user->getAvatar();
 
-            $tabExtension = explode('.', $name);
-            $extension = strtolower(end($tabExtension));
-            //Tableau des extensions que l'on accepte
-            $extensions = ['jpg', 'png', 'jpeg', 'gif', 'webp'];
-            //Taille max que l'on accepte
-            $maxSize = 1500000;
+            if (!empty($_FILES['file']['name'])) {
+                $tmpName = $_FILES['file']['tmp_name'];
+                $name = $_FILES['file']['name'];
+                $size = $_FILES['file']['size'];
+                $error = $_FILES['file']['error'];
 
-            // verifying if email is already taken
-            if (!$userManager->findOneByEmail($email)) {
+                $tabExtension = explode('.', $name);
+                $extension = strtolower(end($tabExtension));
+                //Tableau des extensions que l'on accepte
+                $extensions = ['jpg', 'png', 'jpeg', 'gif', 'webp'];
+                //Taille max que l'on accepte
+                $maxSize = 1500000;
 
-                // verifying if username is already taken
-                if (!$userManager->findOneByUsername($username)) {
+                // verifying if the file extension is one of the accepted file extensions
+                if (in_array($extension, $extensions)) {
 
-                    if ($username && $email) {
+                    // if the file is under the max accepted size
+                    if ($size <= $maxSize) {
 
-                        if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                        // verifying if there is no error in the file
+                        if ($error == 0) {
+
                             $uniqueName = uniqid('', true);
                             //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
                             $file = imagewebp(imagecreatefromstring(file_get_contents($tmpName)), "public/img/avatar/$uniqueName.webp");
                             //imagewebp donne au fichier un format webp
-                            $avatar = $user->getAvatar();
 
+                            // verifying if the user had an avatar and it wasn't the default one
                             if ($avatar !== 'User-avatar.png' && file_exists("public/img/avatar/" . $avatar)) {
                                 unlink("public/img/avatar/" . $avatar);
                             }
 
+                            $avatarChanged = true;
+
+                        } else {
+                            Session::addFlash('error', "Erreur de fichier");
+                            $this->redirectTo('forum', 'updateProfil', $id);
+
                         }
+                    } else {
+                        Session::addFlash('error', "Fichier trop lourd");
+                        $this->redirectTo('forum', 'updateProfil', $id);
 
-                        $data = "username = '" . $username . "',
-                        email = '" . $email . "',
-                        avatar = '" . $uniqueName . ".webp'";
-
-
-                        $userManager->updateUser($data, $id);
-
-                        $userUpdated = $userManager->findOneById($id);
-
-                        $_SESSION['user'] = $userUpdated;
-
-                        $this->redirectTo('forum', 'userProfile');
-                        header("Location: index.php?ctrl=forum&action=userProfile&id=$id");
-                        Session::addFlash('success', 'Profil modifié !');
-                        exit;
                     }
                 } else {
-                    Session::addFlash('error', "Nom d'utilisateur déjà pris !");
-                    $this->redirectTo('forum', 'updateProfil');
+                    Session::addFlash('error', "Type du fichier non accepté");
+                    $this->redirectTo('forum', 'updateProfil', $id);
+
                 }
-            } else {
-                Session::addFlash('error', "Cet adresse email est déjà utilisée !");
-                $this->redirectTo('forum', 'updateProfil');
             }
 
+            // verifying if username & email both passed the filter
+            if ($username && $email) {
+
+                // verifying if email is already taken
+                if ($user->getEmail() != $email && $userManager->findOneByEmail($email) != null) {
+                    Session::addFlash("error", "Adresse email déjà utilisée");
+                    return [
+                        "view" => VIEW_DIR . "forum/updateProfil.php",
+                        "meta_description" => "Modification du profil",
+                        "data" => [
+                            "user" => $user
+                        ]
+                    ];
+                } else {
+                    $data[] = "email = '" . $email . "'";
+                }
+
+                // verifying if username is already taken
+                if ($user->getUsername() != $username && $userManager->findOneByUsername($username) != null) {
+                    Session::addFlash("error", "Nom d'utilisateur déjà utilisé");
+                    return [
+                        "view" => VIEW_DIR . "forum/updateProfil.php",
+                        "meta_description" => "Modification du profil",
+                        "data" => [
+                            "user" => $user
+                        ]
+                    ];
+                } else {
+                    $data[] = "username = '" . $username . "'";
+                }
+
+                // verifying if avatar has been modified
+                if ($avatarChanged) {
+                    $data[] = "avatar = '" . $uniqueName . ".webp'";
+                }
+
+
+                if (!empty($data)) {
+                    $dataToUpdate = implode(', ', $data);
+                    $userManager->updateUser($dataToUpdate, $id);
+
+                    $userUpdated = $userManager->findOneById($id);
+                    $_SESSION['user'] = $userUpdated;
+
+                    $this->redirectTo('forum', 'userProfile', $id);
+                    Session::addFlash('success', 'Profil modifié !');
+                    exit;
+                } else {
+                    //no data to update, back to profile page
+                    $this->redirectTo('forum', 'userProfile', $id);
+                }
+            }
         }
         return [
             "view" => VIEW_DIR . "forum/updateProfil.php",
@@ -334,7 +382,7 @@ class ForumController extends AbstractController implements ControllerInterface
                 "user" => $user,
             ]
         ];
-    }
 
+    }
 
 }
