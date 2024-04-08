@@ -11,7 +11,7 @@ $post = $result['data']['post'];
                 <label class="form-label">
                     Contenu :
                     <textarea name="contenu" col='30' rows='10' class="form-control"
-                        placeholder="500 caractères max."></textarea>
+                        placeholder="500 caractères max."><?= $post->getContenu() ?></textarea>
                 </label>
             </p>
 

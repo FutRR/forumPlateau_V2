@@ -55,7 +55,8 @@ class ForumController extends AbstractController implements ControllerInterface
         $categoryManager = new CategoryManager();
         $topic = $topicManager->findOneById($id);
         $posts = $postManager->findPostsByTopic($id);
-        $category = $categoryManager->findOneById($topic->getCategory()->getId());
+        $catId = $topic->getCategory()->getId();
+        $category = $categoryManager->findOneById($catId);
 
         return [
             "view" => VIEW_DIR . "forum/detailsTopic.php",
@@ -266,7 +267,7 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $postManager = new PostManager();
         $post = $postManager->findOneById($id);
-        $topicId = $post->getTopic();
+        $topicId = $post->getTopic()->getId();
 
         if (isset($_POST['submit'])) {
             $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -281,7 +282,7 @@ class ForumController extends AbstractController implements ControllerInterface
                     $this->redirectTo('forum', 'listPostsByTopic', $topicId);
                 } else {
                     Session::addFlash('error', "Le message ne doit pas dépasser les 500 caractères");
-                    $this->redirectTo('forum', 'listPostsByTopic', $id);
+                    $this->redirectTo('forum', 'listPostsByTopic', $topicId);
                 }
 
             }
