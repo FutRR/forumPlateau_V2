@@ -12,7 +12,7 @@ $topics = $result["data"]['topics'];
 if (isset($topics)) {
 
     foreach ($topics as $topic) { ?>
-        <div class="d-flex bg-light p-2 my-5 border border-dark-subtle rounded">
+        <div class="d-flex bg-light p-2 my-5 border border-dark-subtle rounded" style="min-width: 35%; max-width: fit-content;">
             <div class="d-flex flex-column">
                 <p><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>">
                         <?= $topic->getTitle() ?>
@@ -24,15 +24,18 @@ if (isset($topics)) {
                 </a>publié le
                 <?= $topic->displayDateCreation(); ?> à
                 <?= $topic->displayHeureCreation(); ?>
-
-                <?php
-                if (isset($_SESSION['user'])) {
-                    $user = $_SESSION['user'];
-                    if (serialize($user) == serialize($topic->getUser())) { ?>
-                        <a class='delete-btn btn btn-outline-danger px-2 py-1'
-                            href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId(); ?>"><i class="fa-solid fa-x"></i></a>
+                <div class="d-flex">
+                    <?php
+                    if (isset($_SESSION['user'])) {
+                        $user = $_SESSION['user'];
+                        if (serialize($user) == serialize($topic->getUser())) { ?>
+                            <a href="index.php?ctrl=forum&action=updateTopic&id=<?= $topic->getId() ?>"
+                                class="btn btn-outline-dark m-2">Modifier</a>
+                            <a class='delete-btn btn btn-outline-danger py-1 m-2'
+                                href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId(); ?>">Supprimer</i></a>
+                        <?php } ?>
                     <?php } ?>
-                <?php } ?>
+                </div>
             </div>
         </div>
     <?php }

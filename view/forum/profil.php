@@ -58,14 +58,18 @@ if ($profil->getUsername() == "Utilisateur supprimé") {
     if (isset($topics)) {
 
         foreach ($topics as $topic) { ?>
+            <div class="d-flex bg-light p-2 my-2 border border-dark-subtle rounded" style="min-width: 35%; max-width: fit-content;">
+                <div class="d-flex flex-column">
 
-            <p>
-                <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>">
-                    <?= $topic->getTitle() ?>
-                </a> créé le
-                <?= $topic->displayDateCreation(); ?> à
-                <?= $topic->displayHeureCreation(); ?>
-            </p>
+                    <p>
+                        <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>">
+                            <?= $topic->getTitle() ?>
+                        </a> créé le
+                        <?= $topic->displayDateCreation(); ?> à
+                        <?= $topic->displayHeureCreation(); ?>
+                    </p>
+                </div>
+            </div>
 
             <?php
         }
@@ -83,15 +87,18 @@ if ($profil->getUsername() == "Utilisateur supprimé") {
     <?php if (isset($posts)) {
 
         foreach ($posts as $post) { ?>
-
-            <p>
-                <?= $post->getContenu() ?> publié le
-                <?= $post->displayDateMessage() ?> à
-                <?= $post->displayHeureMessage() ?>
-                sur <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $post->getTopic()->getId() ?>">
-                    <?= $post->getTopic() ?>
-                </a>
-            </p>
+            <div class="d-flex bg-light p-2 my-2 border border-dark-subtle rounded" style="min-width: 35%; max-width: fit-content;">
+                <div class="d-flex flex-column">
+                    <p>
+                        <?= $post->getContenu() ?> publié le
+                        <?= $post->displayDateMessage() ?> à
+                        <?= $post->displayHeureMessage() ?>
+                        sur <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $post->getTopic()->getId() ?>">
+                            <?= $post->getTopic() ?>
+                        </a>
+                    </p>
+                </div>
+            </div>
 
         <?php }
 

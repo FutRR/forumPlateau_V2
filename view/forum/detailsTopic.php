@@ -5,7 +5,7 @@ $category = $result["data"]['category'];
 ?>
 
 <h3>
-    <a href="index.php?ctrl=forum&action=listTopicsByCatgeory&id=<?= $category->getId() ?>">
+    <a href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>">
         <?= $category->getName() ?>
     </a>
 </h3>
@@ -27,7 +27,8 @@ $category = $result["data"]['category'];
 if (isset($posts)) {
 
     foreach ($posts as $post) { ?>
-        <div class="d-flex bg-light py-2 my-5 border border-dark-subtle rounded">
+        <div class="d-flex bg-light py-2 my-5 border border-dark-subtle rounded"
+            style="min-width: 35%; max-width: fit-content;">
             <div class="d-flex m-2"> <img class="img-fluid img-thumbnail rounded w-5"
                     src="public/img/avatar/<?= $post->getUser()->getAvatar() ?>" alt="">
             </div>
@@ -42,19 +43,20 @@ if (isset($posts)) {
                     <?= $post->displayDateMessage() ?> à
                     <?= $post->displayHeureMessage() ?>
                 </p>
-
-                <?php
-                if (isset($_SESSION['user'])) {
-                    $user = $_SESSION['user'];
-                    if (serialize($user) == serialize($post->getUser()) || App\Session::isAdmin()) { ?>
-                        <a class="delete-btn btn btn-outline-danger p-1 m-1"
-                            href="index.php?ctrl=forum&action=deletePost&id=<?= $post->getId() ?>">Supprimer</i></a>
-                    <?php }
-                    if (serialize($user) == serialize($post->getUser())) { ?>
-                        <a class="btn btn-outline-dark p-1 m-1"
-                            href="index.php?ctrl=forum&action=updatePost&id=<?= $post->getId() ?>">Modifier</a>
-                    <?php }
-                } ?>
+                <div class="d-flex">
+                    <?php
+                    if (isset($_SESSION['user'])) {
+                        $user = $_SESSION['user'];
+                        if (serialize($user) == serialize($post->getUser()) || App\Session::isAdmin()) { ?>
+                            <a class="delete-btn btn btn-outline-danger m-2"
+                                href="index.php?ctrl=forum&action=deletePost&id=<?= $post->getId() ?>">Supprimer</i></a>
+                        <?php }
+                        if (serialize($user) == serialize($post->getUser())) { ?>
+                            <a class="btn btn-outline-dark m-2"
+                                href="index.php?ctrl=forum&action=updatePost&id=<?= $post->getId() ?>">Modifier</a>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     <?php }
