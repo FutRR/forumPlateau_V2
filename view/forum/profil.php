@@ -5,7 +5,6 @@ $posts = $result['data']['posts'];
 
 if (!isset($_SESSION['user'])) { ?>
     <h1>
-        Profil de
         <?= $profil->getUsername() ?>
     </h1>
     <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
@@ -17,7 +16,7 @@ if (!isset($_SESSION['user'])) { ?>
 <?php } else { ?>
 
     <div>
-        <h1>Profil de
+        <h1>
             <?= $profil->getUsername() ?>
             <?php if ($_SESSION['user'] != $profil && $_SESSION['user']->getRole() == "role_admin" && $profil->getStatus() == 0) { ?>
                 <a href="index.php?ctrl=security&action=ban&id=<?= $profil->getId() ?>"
@@ -47,57 +46,61 @@ if (!isset($_SESSION['user'])) { ?>
 
     <?php } ?>
 
-<?php } ?>
+<?php }
+if ($profil->getUsername() == "Utilisateur supprimé") {
 
-<h2 class="mt-2">Topics créés</h2>
+} else { ?>
 
-<?php
+    <h2 class="mt-2">Topics créés</h2>
 
-if (isset($topics)) {
+    <?php
 
-    foreach ($topics as $topic) { ?>
+    if (isset($topics)) {
 
-        <p>
-            <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>">
-                <?= $topic->getTitle() ?>
-            </a> créé le
-            <?= $topic->displayDateCreation(); ?> à
-            <?= $topic->displayHeureCreation(); ?>
-        </p>
+        foreach ($topics as $topic) { ?>
+
+            <p>
+                <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>">
+                    <?= $topic->getTitle() ?>
+                </a> créé le
+                <?= $topic->displayDateCreation(); ?> à
+                <?= $topic->displayHeureCreation(); ?>
+            </p>
+
+            <?php
+        }
+    } else { ?>
+
+        <p>0 topic postés</p>
 
         <?php
     }
-} else { ?>
 
-    <p>0 topic postés</p>
+    ?>
 
-    <?php
-}
+    <h2>Posts créés</h2>
 
-?>
+    <?php if (isset($posts)) {
 
-<h2>Posts créés</h2>
+        foreach ($posts as $post) { ?>
 
-<?php if (isset($posts)) {
+            <p>
+                <?= $post->getContenu() ?> publié le
+                <?= $post->displayDateMessage() ?> à
+                <?= $post->displayHeureMessage() ?>
+                sur <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $post->getTopic()->getId() ?>">
+                    <?= $post->getTopic() ?>
+                </a>
+            </p>
 
-    foreach ($posts as $post) { ?>
+        <?php }
 
-        <p>
-            <?= $post->getContenu() ?> publié le
-            <?= $post->displayDateMessage() ?> à
-            <?= $post->displayHeureMessage() ?>
-            sur <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $post->getTopic()->getId() ?>">
-                <?= $post->getTopic() ?>
-            </a>
-        </p>
+    } else { ?>
+
+        <p>0 posts postés</p>
 
     <?php }
-
-} else { ?>
-
-    <p>0 posts postés</p>
-
-<?php }
+}
 if (App\Session::getUser() == $profil) { ?>
-    <a class="delete-user-btn btn btn-danger" href="index.php&ctrl=forum&action=deleteUser">Supprimer le compte</a>
+    <a class="delete-user-btn btn btn-danger" href="index.php?ctrl=forum&action=deleteUser">Supprimer le compte</a>
 <?php } ?>

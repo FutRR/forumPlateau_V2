@@ -86,8 +86,10 @@ class SecurityController extends AbstractController
                         if ($user->getStatus() == 0) {
                             $_SESSION["user"] = $user;
                             $this->redirectTo('home', 'index');
-                        } else {
+                        } elseif ($user->getStatus() == 1) {
                             Session::addFlash('error', 'Vous êtes banni');
+                            $this->redirectTo('security', 'login');
+                        } elseif ($user->getStatus() == 2) {
                             $this->redirectTo('security', 'login');
                         }
                     } else {

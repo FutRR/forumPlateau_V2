@@ -18,8 +18,6 @@ if (!App\Session::isAdmin()) { ?>
                 <?php $profil = $_SESSION['user'];
                 if (serialize($user) == serialize($profil)) { ?>
                     <p> <strong>Votre profil</strong> :
-                    <?php } else { ?>
-                    <p>Nom d'utilisateur :
                     <?php } ?>
                     <a href="index.php?ctrl=forum&action=userProfile&id=<?= $user->getId() ?>">
                         <?= $user->getUsername() ?>

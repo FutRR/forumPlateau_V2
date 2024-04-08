@@ -473,6 +473,23 @@ class ForumController extends AbstractController implements ControllerInterface
 
     public function deleteUser()
     {
+        $userManager = new UserManager();
+
+        $user = $userManager->findOneById($_SESSION['user']->getId());
+
+        $data = "username = 'Utilisateur supprimé',
+                email = 'Utilisateur supprimé',
+                avatar = '',
+                status = '2'";
+
+        $userManager->updateUser($data, $user->getId());
+        unset($_SESSION['user']);
+        Session::addFlash('success', 'Compte supprimé !');
+        $this->redirectTo('home', 'index');
+        return [
+            "view" => VIEW_DIR . "forum/profil.php",
+        ];
+
 
     }
 
