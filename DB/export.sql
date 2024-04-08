@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `topic_id` (`topic_id`),
   CONSTRAINT `FK_post_topic` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id_topic`),
   CONSTRAINT `FK_post_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- Listage des données de la table forum_maximefutterer.post : ~14 rows (environ)
 INSERT IGNORE INTO `post` (`id_post`, `contenu`, `dateMessage`, `closed`, `user_id`, `topic_id`) VALUES
@@ -64,7 +64,11 @@ INSERT IGNORE INTO `post` (`id_post`, `contenu`, `dateMessage`, `closed`, `user_
 	(20, 'carrément!', '2024-04-04 16:26:14', 0, 3, 1),
 	(21, '3 ptits chats', '2024-04-05 16:43:00', 0, 3, 7),
 	(22, 'jour 255 : ça va mieux', '2024-04-05 16:43:39', 0, 3, 8),
-	(23, 'bkabkabka', '2024-04-05 20:40:06', 0, 3, 16);
+	(23, 'bkabkabka', '2024-04-05 20:40:06', 0, 3, 16),
+	(27, 'Temerie &#60;3', '2024-04-08 10:59:20', 0, 6, 17),
+	(29, 'Privet, kak dela ?', '2024-04-08 11:03:19', 0, 6, 19),
+	(30, 'vsë khorosho', '2024-04-08 11:03:41', 0, 6, 19),
+	(31, 'tenosia...', '2024-04-08 11:04:21', 0, 6, 15);
 
 -- Listage de la structure de table forum_maximefutterer. topic
 CREATE TABLE IF NOT EXISTS `topic` (
@@ -78,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `FK_topic_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id_category`),
   CONSTRAINT `FK_topic_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- Listage des données de la table forum_maximefutterer.topic : ~7 rows (environ)
 INSERT IGNORE INTO `topic` (`id_topic`, `title`, `dateCreation`, `category_id`, `user_id`) VALUES
@@ -89,7 +93,9 @@ INSERT IGNORE INTO `topic` (`id_topic`, `title`, `dateCreation`, `category_id`, 
 	(13, '50 shades of gray', '2024-04-04 10:29:37', 4, 5),
 	(14, 'test', '2024-04-04 10:49:58', 2, 3),
 	(15, 'Chivalry 2', '2024-04-04 11:14:11', 1, 3),
-	(16, 'blabka', '2024-04-05 20:40:06', 1, 3);
+	(16, 'blabka', '2024-04-05 20:40:06', 1, 3),
+	(17, 'The Witcher', '2024-04-08 10:59:20', 4, 6),
+	(19, 'Metro 2033', '2024-04-08 11:03:19', 4, 6);
 
 -- Listage de la structure de table forum_maximefutterer. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -105,13 +111,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Listage des données de la table forum_maximefutterer.user : ~5 rows (environ)
+-- Listage des données de la table forum_maximefutterer.user : ~4 rows (environ)
 INSERT IGNORE INTO `user` (`id_user`, `username`, `email`, `password`, `registerDate`, `role`, `avatar`, `status`) VALUES
 	(2, 'admin1', 'admin@gmail.com', '$2y$10$uFKy8AbYNFOWoNBmCCxbAOXUSuDaY.xHR6yy4.ZjIwwkvPLxeyOp2*', '2024-03-27 15:57:05', 'role_admin', 'User-avatar.png', 0),
-	(3, 'maxime', 'max@exemple.com', '$2y$10$KvI9y0BhIIdPNZgS/F2JXeIpI6NS504D7EABZNMT1NQPwWPHfVcKW', '2024-04-02 15:46:09', 'role_user', '6612d649884d09.94515390.webp', 0),
-	(4, 'admin', 'admin@exemple.com', '$2y$10$Qr0dzTabPQMyFvfukQHJAu.TWAWi2CyxpxJJ8uEBlUoX7iV0hHLsO', '2024-04-03 13:39:40', 'role_admin', '.webp', 0),
+	(3, 'futrr_', 'max@exemple.com', '$2y$10$KvI9y0BhIIdPNZgS/F2JXeIpI6NS504D7EABZNMT1NQPwWPHfVcKW', '2024-04-02 15:46:09', 'role_user', '6613a33ca10915.96096367.webp', 0),
+	(4, 'admin', 'admin@exemple.com', '$2y$10$0QYfIdBUiHmWT/fe2nt9pOzHSt1GIWqw8djk5HZjI3vSoTHj0LtrO', '2024-04-03 13:39:40', 'role_admin', '6613a48a04d0a7.72813701.webp', 0),
 	(5, 'kev', 'azerty2@gmail.com', '$2y$10$CBbVlbc8YwG7oHHsQcyqX.mtQu/zRBk9eJo4ewr7vF/WSxBKbxb6e', '2024-04-04 10:28:45', 'role_user', 'User-avatar.png', 1),
-	(6, 'test', 'test@exe.fr', '$2y$10$ldqhEaCZoOkLg3FTyUUHFOxD2A7PpMAzgIorOERi93ijfkP0BrDIW', '2024-04-05 20:41:18', 'role_user', 'User-avatar.png', 0);
+	(6, 'testeur', 'test@exe.fr', '$2y$10$nR7NEg5xDLfbvP/Qx7FiNu7clqW9zSd4642itpCx5hXtPbnOuzSSK', '2024-04-05 20:41:18', 'role_user', '6613ae98d7ba82.75830141.webp', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
