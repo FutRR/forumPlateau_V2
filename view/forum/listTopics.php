@@ -30,14 +30,12 @@ if (isset($topics)) {
                     $user = $_SESSION['user'];
                     if (serialize($user) == serialize($topic->getUser())) { ?>
                         <a class='delete-btn btn btn-outline-danger px-2 py-1'
-                            href="index.php?ctrl=forum&action=deleteTopic&cat_id=<?= $category->getId() ?>&topic_id=<?= $topic->getId(); ?>"><i
-                                class="fa-solid fa-x"></i></a>
-                        <?php
-                    } ?>
-                </div>
+                            href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId(); ?>"><i class="fa-solid fa-x"></i></a>
+                    <?php } ?>
+                <?php } ?>
             </div>
-        <?php }
-    }
+        </div>
+    <?php }
 } else { ?>
     <p>Aucun Topic</p>
 <?php }
