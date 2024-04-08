@@ -12,11 +12,14 @@ if (isset($_SESSION['user']) && $_SESSION['user'] == $profil) { ?>
 
                 <a href="index.php?ctrl=forum&action=updateProfil&id=<?= $profil->getId() ?>"
                     class="btn btn-outline-dark py=1">Modifier</a>
+                <a href="index.php?ctrl=forum&action=updatePassword&id=<?= $profil->getId() ?>"
+                    class="btn btn-outline-dark py=1">Modifier le mot de passe</a>
+
             <?php } ?>
         </h1>
-        <h3>
-            <?= $profil->getUsername(); ?>
+        <h3 class='d-flex'>
             <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
+            <?= $profil->getUsername(); ?>
         </h3>
         <p>Inscris depuis le
             <?= $profil->displayRegisterDate() ?>
@@ -35,7 +38,7 @@ if (isset($_SESSION['user']) && $_SESSION['user'] == $profil) { ?>
             ?>
             <a href="index.php?ctrl=security&action=ban&id=<?= $profil->getId() ?>"
                 class="ban-btn btn btn-outline-warning">Ban</a>
-        <?php } else { ?>
+        <?php } elseif ($_SESSION['user']->getRole() == "role_admin" && $profil->getStatus() == 1) { ?>
             <a href="index.php?ctrl=security&action=unBan&id=<?= $profil->getId() ?>"
                 class="unban-btn btn btn-outline-warning">Unban</a>
         <?php } ?>

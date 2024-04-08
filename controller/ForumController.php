@@ -366,8 +366,8 @@ class ForumController extends AbstractController implements ControllerInterface
                     $userUpdated = $userManager->findOneById($id);
                     $_SESSION['user'] = $userUpdated;
 
-                    $this->redirectTo('forum', 'userProfile', $id);
                     Session::addFlash('success', 'Profil modifié !');
+                    $this->redirectTo('forum', 'userProfile', $id);
                     exit;
                 } else {
                     //no data to update, back to profile page
@@ -378,6 +378,52 @@ class ForumController extends AbstractController implements ControllerInterface
         return [
             "view" => VIEW_DIR . "forum/updateProfil.php",
             "meta_description" => "Modification de profil",
+            "data" => [
+                "user" => $user,
+            ]
+        ];
+
+    }
+
+    public function updatePassword($id)
+    {
+
+        $userManager = new UserManager();
+        $user = $userManager->findOneById($id);
+
+
+        if (isset($_POST['submit'])) {
+            $current = filter_input(INPUT_POST, 'current', FILTER_SANITIZE_SPECIAL_CHARS);
+            $password1 = filter_input(INPUT_POST, 'password1', FILTER_SANITIZE_SPECIAL_CHARS);
+            $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            if (password_verify($current, $user->getPassword())) {
+                if ($password1 == $password2 && strlen($password1) >= 5) {
+
+                    $passwordHash = password_hash($password1, PASSWORD_DEFAULT);
+
+                    $data = "password = '" . $passwordHash . "'";
+
+                    $userManager->updateUser($data, $id);
+
+                    $userUpdated = $userManager->findOneById($id);
+                    $_SESSION['user'] = $userUpdated;
+
+                    Session::addFlash('success', 'Mot de passe modifié !');
+                    $this->redirectTo('forum', 'userProfile', $id);
+                } else {
+                    Session::addFlash('error', 'Mot de passe trop court ou incorrect');
+                    $this->redirectTo('forum', 'updatePassword', $id);
+                }
+            } else {
+                Session::addFlash('error', 'Mauvais mot de passe');
+                $this->redirectTo('forum', 'updatePassword', $id);
+            }
+
+        }
+        return [
+            "view" => VIEW_DIR . "forum/updatePassword.php",
+            "meta_description" => "Modification de mot de passe",
             "data" => [
                 "user" => $user,
             ]
