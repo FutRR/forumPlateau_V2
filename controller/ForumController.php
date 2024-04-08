@@ -155,41 +155,46 @@ class ForumController extends AbstractController implements ControllerInterface
 
     public function addCategory()
     {
-        $categoryManager = new CategoryManager();
+        if (Session::isAdmin()) {
 
-        if (isset($_SESSION['user'])) {
-            if (isset($_POST['submit'])) {
+            $categoryManager = new CategoryManager();
 
-                $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+            if (isset($_SESSION['user'])) {
+                if (isset($_POST['submit'])) {
 
-                if ($name) {
+                    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
 
-                    $categoryManager->add(['name' => $name]);
-                    Session::addFlash('success', 'Categorie créée !');
-                    $this->redirectTo('forum', 'index');
+                    if ($name) {
+
+                        $categoryManager->add(['name' => $name]);
+                        Session::addFlash('success', 'Categorie créée !');
+                        $this->redirectTo('forum', 'index');
+                    }
                 }
             }
+            return [
+                "view" => VIEW_DIR . "forum/listCategories.php",
+            ];
         }
-        return [
-            "view" => VIEW_DIR . "forum/listCategories.php",
-        ];
-
     }
 
     public function deleteTopic($id)
     {
+
         $topicManager = new TopicManager();
 
         $topic = $topicManager->findOneById($id);
         $catId = $topic->getCategory()->getId();
 
-        $topicManager->delete($id);
-        Session::addFlash('success', 'Topic Supprimé');
-        $this->redirectTo("forum", "listTopicsByCategory", $catId);
-        return [
-            "view" => VIEW_DIR . "forum/listTopics.php",
-        ];
+        if (Session::isAdmin() || Session::getUser() == $topic->getUser()) {
 
+            $topicManager->delete($id);
+            Session::addFlash('success', 'Topic Supprimé');
+            $this->redirectTo("forum", "listTopicsByCategory", $catId);
+            return [
+                "view" => VIEW_DIR . "forum/listTopics.php",
+            ];
+        }
     }
 
     public function deletePost($id)
@@ -199,41 +204,46 @@ class ForumController extends AbstractController implements ControllerInterface
         $post = $postManager->findOneById($id);
         $topicId = $post->getTopic()->getId();
 
-        $postManager->delete($id);
-        Session::addFlash('success', 'Post supprimé !');
-        $this->redirectTo('forum', 'listPostsByTopic', $topicId);
-        return [
-            "view" => VIEW_DIR . "forum/detailsTopic.php",
-        ];
+        if (Session::isAdmin() || Session::getUser() == $post->getUser()) {
 
+            $postManager->delete($id);
+            Session::addFlash('success', 'Post supprimé !');
+            $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+            return [
+                "view" => VIEW_DIR . "forum/detailsTopic.php",
+            ];
+        }
     }
 
 
     public function updateCategory($id)
     {
-        $categoryManager = new categoryManager();
-        $category = $categoryManager->findOneById($id);
+        if (Session::isAdmin()) {
+
+            $categoryManager = new categoryManager();
+            $category = $categoryManager->findOneById($id);
 
 
-        if (isset($_POST['submit'])) {
-            $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+            if (isset($_POST['submit'])) {
+                $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            if ($name) {
+                if ($name) {
 
-                $data = "name = '" . $name . "'";
+                    $data = "name = '" . $name . "'";
 
-                $categoryManager->updateCategory($data, $id);
-                Session::addFlash('success', 'Categorie modifiée !');
-                $this->redirectTo('forum', 'listTopicsByCategory', $id);
+                    $categoryManager->updateCategory($data, $id);
+                    Session::addFlash('success', 'Categorie modifiée !');
+                    $this->redirectTo('forum', 'listTopicsByCategory', $id);
+                }
             }
+            return [
+                "view" => VIEW_DIR . "forum/updateCategory.php",
+                "meta_description" => "Modification de catégorie",
+                "data" => [
+                    "category" => $category,
+                ]
+            ];
         }
-        return [
-            "view" => VIEW_DIR . "forum/updateCategory.php",
-            "meta_description" => "Modification de catégorie",
-            "data" => [
-                "category" => $category,
-            ]
-        ];
     }
 
     public function updateTopic($id)
@@ -241,26 +251,28 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
 
+        if (Session::getUser() == $topic->getUser()) {
 
-        if (isset($_POST['submit'])) {
-            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+            if (isset($_POST['submit'])) {
+                $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            if ($title) {
+                if ($title) {
 
-                $data = "title = '" . $title . "'";
+                    $data = "title = '" . $title . "'";
 
-                $topicManager->updateTopic($data, $id);
-                Session::addFlash('success', 'Topic modifié !');
-                $this->redirectTo('forum', 'listPostsByTopic', $id);
+                    $topicManager->updateTopic($data, $id);
+                    Session::addFlash('success', 'Topic modifié !');
+                    $this->redirectTo('forum', 'listPostsByTopic', $id);
+                }
             }
+            return [
+                "view" => VIEW_DIR . "forum/updateTopic.php",
+                "meta_description" => "Modification de topic",
+                "data" => [
+                    "topic" => $topic,
+                ]
+            ];
         }
-        return [
-            "view" => VIEW_DIR . "forum/updateTopic.php",
-            "meta_description" => "Modification de topic",
-            "data" => [
-                "topic" => $topic,
-            ]
-        ];
     }
 
     public function updatePost($id)
@@ -269,32 +281,34 @@ class ForumController extends AbstractController implements ControllerInterface
         $post = $postManager->findOneById($id);
         $topicId = $post->getTopic()->getId();
 
-        if (isset($_POST['submit'])) {
-            $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
+        if (Session::getUser() == $post->getUser()) {
 
-            if ($contenu) {
-                if (mb_strlen($contenu) < 500) {
+            if (isset($_POST['submit'])) {
+                $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
 
-                    $data = "contenu = '" . $contenu . "'";
+                if ($contenu) {
+                    if (mb_strlen($contenu) < 500) {
 
-                    $postManager->updatePost($data, $id);
-                    Session::addFlash('success', 'Post modifié !');
-                    $this->redirectTo('forum', 'listPostsByTopic', $topicId);
-                } else {
-                    Session::addFlash('error', "Le message ne doit pas dépasser les 500 caractères");
-                    $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+                        $data = "contenu = '" . $contenu . "'";
+
+                        $postManager->updatePost($data, $id);
+                        Session::addFlash('success', 'Post modifié !');
+                        $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+                    } else {
+                        Session::addFlash('error', "Le message ne doit pas dépasser les 500 caractères");
+                        $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+                    }
+
                 }
-
             }
+            return [
+                "view" => VIEW_DIR . "forum/updatePost.php",
+                "meta_description" => "Modification de post",
+                "data" => [
+                    "post" => $post,
+                ]
+            ];
         }
-        return [
-            "view" => VIEW_DIR . "forum/updatePost.php",
-            "meta_description" => "Modification de post",
-            "data" => [
-                "post" => $post,
-            ]
-        ];
-
     }
 
     public function updateProfil()
@@ -476,14 +490,15 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $userManager = new UserManager();
 
-        $user = $userManager->findOneById($_SESSION['user']->getId());
+        $user = $_SESSION['user'];
+        $id = $user->getId();
 
         $data = "username = 'Utilisateur supprimé',
                 email = 'Utilisateur supprimé',
                 avatar = '',
                 status = '2'";
 
-        $userManager->updateUser($data, $user->getId());
+        $userManager->updateUser($data, $id);
         unset($_SESSION['user']);
         Session::addFlash('success', 'Compte supprimé !');
         $this->redirectTo('home', 'index');
