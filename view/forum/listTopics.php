@@ -31,7 +31,7 @@ if (isset($topics)) {
                         if (serialize($user) == serialize($topic->getUser())) { ?>
                             <a href="index.php?ctrl=forum&action=updateTopic&id=<?= $topic->getId() ?>"
                                 class="btn btn-outline-dark m-2">Modifier</a>
-                            <a class='delete-btn btn btn-outline-danger py-1 m-2'
+                            <a class='delete-btn btn btn-outline-danger m-2'
                                 href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId(); ?>">Supprimer</i></a>
                         <?php } ?>
                     <?php } ?>

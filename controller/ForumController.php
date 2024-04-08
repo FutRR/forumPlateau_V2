@@ -495,7 +495,7 @@ class ForumController extends AbstractController implements ControllerInterface
 
         $data = "username = 'Utilisateur supprimé',
                 email = 'Utilisateur supprimé',
-                avatar = '',
+                avatar = 'User-avatar.png',
                 status = '2'";
 
         $userManager->updateUser($data, $id);
