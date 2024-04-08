@@ -122,26 +122,31 @@ class SecurityController extends AbstractController
 
     public function ban($id)
     {
-        $userManager = new userManager();
+        if (Session::isAdmin()) {
+            $userManager = new userManager();
 
-        $data = 1;
+            $data = 1;
 
-        $userManager->banUser($data, $id);
-        Session::addFlash('success', 'Utilisateur banni !');
+            $userManager->banUser($data, $id);
+            Session::addFlash('success', 'Utilisateur banni !');
 
-        $this->redirectTo('home', 'users');
+            $this->redirectTo('home', 'users');
+        }
     }
 
     public function unBan($id)
     {
-        $userManager = new userManager();
+        if (Session::isAdmin()) {
 
-        $data = 0;
+            $userManager = new userManager();
 
-        $userManager->banUser($data, $id);
-        Session::addFlash('success', 'Utilisateur banni !');
+            $data = 0;
 
-        $this->redirectTo('home', 'users');
+            $userManager->banUser($data, $id);
+            Session::addFlash('success', 'Utilisateur banni !');
+
+            $this->redirectTo('home', 'users');
+        }
     }
 
 }
