@@ -241,7 +241,7 @@ class ForumController extends AbstractController implements ControllerInterface
 
     public function updateTopic($id)
     {
-        $topicManager = new topicManager();
+        $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
 
 
@@ -266,10 +266,45 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
-    public function updateProfil($id)
+    public function updatePost($id)
+    {
+        $postManager = new PostManager();
+        $post = $postManager->findOneById($id);
+        $topicId = $post->getTopic();
+
+        if (isset($_POST['submit'])) {
+            $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            if ($contenu) {
+                if (mb_strlen($contenu) < 500) {
+
+                    $data = "contenu = '" . $contenu . "'";
+
+                    $postManager->updatePost($data, $id);
+                    Session::addFlash('success', 'Post modifié !');
+                    $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+                } else {
+                    Session::addFlash('error', "Le message ne doit pas dépasser les 500 caractères");
+                    $this->redirectTo('forum', 'listPostsByTopic', $id);
+                }
+
+            }
+        }
+        return [
+            "view" => VIEW_DIR . "forum/updatePost.php",
+            "meta_description" => "Modification de post",
+            "data" => [
+                "post" => $post,
+            ]
+        ];
+
+    }
+
+    public function updateProfil()
     {
         $userManager = new UserManager();
-        $user = $userManager->findOneById($id);
+        $user = $_SESSION['user'];
+        $id = $user->getId();
 
 
         if (isset($_POST['submit'])) {
@@ -393,11 +428,12 @@ class ForumController extends AbstractController implements ControllerInterface
 
     }
 
-    public function updatePassword($id)
+    public function updatePassword()
     {
 
         $userManager = new UserManager();
-        $user = $userManager->findOneById($id);
+        $user = $_SESSION['user'];
+        $id = $user->getId();
 
 
         if (isset($_POST['submit'])) {
