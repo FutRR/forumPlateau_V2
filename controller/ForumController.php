@@ -105,11 +105,15 @@ class ForumController extends AbstractController implements ControllerInterface
                 $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
 
                 if ($title && $contenu) {
+                    if (mb_strlen($contenu) < 500) {
 
-                    $idtopic = $topicManager->add(['title' => $title, 'category_id' => $id, 'user_id' => $userId]);
-                    $postManager->add(['contenu' => $contenu, 'user_id' => $userId, 'topic_id' => $idtopic]);
-                    header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$id");
-                    Session::addFlash('success', 'Topic créé !');
+                        $idtopic = $topicManager->add(['title' => $title, 'category_id' => $id, 'user_id' => $userId]);
+                        $postManager->add(['contenu' => $contenu, 'user_id' => $userId, 'topic_id' => $idtopic]);
+                        Session::addFlash('success', 'Topic créé !');
+                        $this->redirectTo('forum', 'listPostsByTopic', $idtopic);
+                    } else {
+                        Session::addFlash('error', "Le message ne doit pas dépasser les 500 caractères");
+                    }
                 }
             }
         }
@@ -131,10 +135,15 @@ class ForumController extends AbstractController implements ControllerInterface
                 $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
 
                 if ($contenu) {
+                    if (mb_strlen($contenu) < 500) {
 
-                    $postManager->add(['contenu' => $contenu, 'topic_id' => $id, 'user_id' => $userId]);
-                    header("Location: index.php?ctrl=forum&action=listPostsByTopic&id=$id");
-                    Session::addFlash('success', 'Post créé !');
+                        $postManager->add(['contenu' => $contenu, 'topic_id' => $id, 'user_id' => $userId]);
+                        Session::addFlash('success', 'Post créé !');
+                        $this->redirectTo('forum', 'listPostsByTopic', $id);
+                    } else {
+                        Session::addFlash('error', "Le message ne doit pas dépasser les 500 caractères");
+                        $this->redirectTo('forum', 'listPostsByTopic', $id);
+                    }
                 }
             }
         }
@@ -155,8 +164,8 @@ class ForumController extends AbstractController implements ControllerInterface
                 if ($name) {
 
                     $categoryManager->add(['name' => $name]);
-                    header("Location: index.php?ctrl=forum&action=index");
                     Session::addFlash('success', 'Categorie créée !');
+                    $this->redirectTo('forum', 'index');
                 }
             }
         }
@@ -217,8 +226,8 @@ class ForumController extends AbstractController implements ControllerInterface
                 $data = "name = '" . $name . "'";
 
                 $categoryManager->updateCategory($data, $id);
-                header("Location: index.php?ctrl=forum&action=index");
                 Session::addFlash('success', 'Categorie modifiée !');
+                $this->redirectTo('forum', 'listTopicsByCategory', $id);
             }
         }
         return [
@@ -244,9 +253,8 @@ class ForumController extends AbstractController implements ControllerInterface
                 $data = "title = '" . $title . "'";
 
                 $topicManager->updateTopic($data, $id);
-                $this->redirectTo('forum', 'detailsTopic');
-                header("Location: index.php?ctrl=forum&action=listPostsByTopic&id=$id");
                 Session::addFlash('success', 'Topic modifié !');
+                $this->redirectTo('forum', 'listPostsByTopic', $id);
             }
         }
         return [

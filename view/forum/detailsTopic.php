@@ -67,7 +67,8 @@ if (isset($_SESSION['user'])) {
                 <p>
                     <label class="form-label">
                         Contenu :
-                        <textarea name="contenu" col='30' rows='10' class="form-control"></textarea>
+                        <textarea name="contenu" col='30' rows='10' class="form-control"
+                            placeholder="500 caractères max."></textarea>
                     </label>
                 </p>
 
