@@ -35,10 +35,10 @@ if (!App\Session::isAdmin()) { ?>
                 if ($user->getStatus() == 0 && $user != $_SESSION['user']) {
                     ?>
                     <a href="index.php?ctrl=security&action=ban&id=<?= $user->getId() ?>"
-                        class="ban-btn btn btn-outline-warning">Ban</a>
+                        class="ban-btn btn btn-outline-warning text-dark">Ban</a>
                 <?php } elseif ($user->getStatus() == 1 && $user != $_SESSION['user']) { ?>
                     <a href="index.php?ctrl=security&action=unBan&id=<?= $user->getId() ?>"
-                        class="unban-btn btn btn-outline-warning">Unban</a>
+                        class="unban-btn btn btn-outline-warning text-dark">Unban</a>
                 <?php } ?>
             </div>
         </div>

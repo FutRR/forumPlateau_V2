@@ -51,13 +51,10 @@
                             if (App\Session::getUser()) {
                                 ?>
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">Profil
-                                </a></li>
-
-                                <!-- <img style='width: 50px;' src="public/img/avatar/<?= App\Session::getUser()->getAvatar() ?>"
-                                    alt=""> -->
-
-                                <!-- <span class="fas fa-user"></span>&nbsp; -->
+                                    href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">
+                                    <img class='img-thumbnail rounded w-5' style='width: 50px;'
+                                        src="public/img/avatar/<?= App\Session::getUser()->getAvatar() ?>" alt="">
+                                </a>
 
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
                                     href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
@@ -108,13 +105,16 @@
             //     }
             // })
             $(".delete-btn").on("click", function () {
-                return confirm("Etes-vous sûr de vouloir supprimer?")
+                return confirm("Êtes-vous sûr de vouloir supprimer?")
+            })
+            $(".delete-user-btn").on("click", function () {
+                return confirm("Êtes-vous sûr de vouloir supprimer vote compte ? Cette action est définitive.")
             })
             $(".ban-btn").on("click", function () {
-                return confirm("Etes-vous sûr de vouloir bannir cet utilisateur ?")
+                return confirm("Êtes-vous sûr de vouloir bannir cet utilisateur ?")
             })
             $(".unban-btn").on("click", function () {
-                return confirm("Etes-vous sûr de vouloir débannir cet utilisateur ?")
+                return confirm("Êtes-vous sûr de vouloir débannir cet utilisateur ?")
             })
 
             tinymce.init({

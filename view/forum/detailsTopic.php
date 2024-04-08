@@ -16,6 +16,9 @@ $category = $result["data"]['category'];
 
         <a href="index.php?ctrl=forum&action=updateTopic&id=<?= $topic->getId() ?>"
             class="btn btn-outline-dark py=1">Modifier</a>
+        <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>"
+            class="delete-btn btn btn-outline-danger py=1">Supprimer</a>
+
     <?php } ?>
 
 </h1>
@@ -43,9 +46,13 @@ if (isset($posts)) {
                 <?php
                 if (isset($_SESSION['user'])) {
                     $user = $_SESSION['user'];
-                    if (serialize($user) == serialize($post->getUser())) { ?>
-                        <a class='delete-btn btn btn-outline-danger p-1'
+                    if (serialize($user) == serialize($post->getUser()) || App\Session::isAdmin()) { ?>
+                        <a class="delete-btn btn btn-outline-danger p-1 m-1"
                             href="index.php?ctrl=forum&action=deletePost&post_id=<?= $post->getId() ?>&topic_id=<?= $topic->getId(); ?>">Supprimer</i></a>
+                    <?php }
+                    if (serialize($user) == serialize($post->getUser())) { ?>
+                        <a class="btn btn-outline-dark p-1 m-1"
+                            href="index.php?ctrl=forum&action=updatePost&id=<?= $post->getId() ?>">Modifier</a>
                     <?php }
                 } ?>
             </div>
