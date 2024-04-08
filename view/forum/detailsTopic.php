@@ -48,7 +48,7 @@ if (isset($posts)) {
                     $user = $_SESSION['user'];
                     if (serialize($user) == serialize($post->getUser()) || App\Session::isAdmin()) { ?>
                         <a class="delete-btn btn btn-outline-danger p-1 m-1"
-                            href="index.php?ctrl=forum&action=deletePost&post_id=<?= $post->getId() ?>&topic_id=<?= $topic->getId(); ?>">Supprimer</i></a>
+                            href="index.php?ctrl=forum&action=deletePost&id=<?= $post->getId() ?>">Supprimer</i></a>
                     <?php }
                     if (serialize($user) == serialize($post->getUser())) { ?>
                         <a class="btn btn-outline-dark p-1 m-1"

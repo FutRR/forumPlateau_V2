@@ -175,40 +175,36 @@ class ForumController extends AbstractController implements ControllerInterface
 
     }
 
-    public function deleteTopic()
+    public function deleteTopic($id)
     {
         $topicManager = new TopicManager();
 
-        if (isset($_GET['cat_id']) && isset($_GET['topic_id'])) {
+        $topic = $topicManager->findOneById($id);
+        $catId = $topic->getCategory()->getId();
 
-            $catId = $_GET['cat_id'];
-            $id = $_GET['topic_id'];
-
-            $topicManager->deleteTopic($id);
-            $topicManager->delete($id);
-            Session::addFlash('success', 'Topic Supprimé');
-            $this->redirectTo("forum", "listTopicsByCategory", $catId);
-        }
+        $topicManager->delete($id);
+        Session::addFlash('success', 'Topic Supprimé');
+        $this->redirectTo("forum", "listTopicsByCategory", $catId);
         return [
             "view" => VIEW_DIR . "forum/listTopics.php",
         ];
 
     }
 
-    public function deletePost()
+    public function deletePost($id)
     {
         $postManager = new PostManager();
 
-        if (isset($_GET['post_id']) && isset($_GET['topic_id'])) {
+        $post = $postManager->findOneById($id);
+        $topicId = $post->getTopic()->getId();
 
-            $topicId = $_GET['topic_id'];
-            $id = $_GET['post_id'];
+        $postManager->delete($id);
+        Session::addFlash('success', 'Post supprimé !');
+        $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+        return [
+            "view" => VIEW_DIR . "forum/detailsTopic.php",
+        ];
 
-
-            $postManager->delete($id);
-            Session::addFlash('success', 'Post supprimé !');
-            $this->redirectTo('forum', 'listPostsByTopic', $topicId);
-        }
     }
 
 
@@ -472,6 +468,11 @@ class ForumController extends AbstractController implements ControllerInterface
                 "user" => $user,
             ]
         ];
+
+    }
+
+    public function deleteUser()
+    {
 
     }
 

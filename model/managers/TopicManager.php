@@ -60,16 +60,6 @@ class TopicManager extends Manager
 
     }
 
-    public function deleteTopic($id)
-    {
-        $sql = "DELETE FROM post
-                WHERE topic_id = :id";
-
-        // la requête renvoie plusieurs enregistrements --> getMultipleResults
-        return DAO::delete($sql, ['id' => $id]);
-
-    }
-
     public function updateTopic($data, $id)
     {
         $sql = "UPDATE topic
