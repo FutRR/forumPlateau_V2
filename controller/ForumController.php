@@ -509,4 +509,33 @@ class ForumController extends AbstractController implements ControllerInterface
 
     }
 
+    public function respondPost($id)
+    {
+        $postManager = new PostManager();
+        $post = $postManager->findOneById($id);
+        $topicId = $post->getTopic()->getId();
+
+        $user = $_SESSION["user"];
+        $userId = $user->getId();
+
+        if (isset($_POST['submit'])) {
+            $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            if ($contenu) {
+                if (mb_strlen($contenu) < 500) {
+
+                    $data = "contenu = '" . $contenu . "',
+                            user_id = '" . $userId . "'";
+
+                    $postManager->updatePost($data, $id);
+                    Session::addFlash('success', 'Post créé !');
+                    $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+                } else {
+                    Session::addFlash('error', "Le message ne doit pas dépasser les 500 caractères");
+                    $this->redirectTo('forum', 'listPostsByTopic', $topicId);
+                }
+            }
+
+        }
+    }
 }

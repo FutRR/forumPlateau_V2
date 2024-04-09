@@ -5,6 +5,7 @@ use App\AbstractController;
 use App\ControllerInterface;
 use App\DAO;
 use App\Session;
+use Model\Managers\TopicManager;
 use Model\Managers\UserManager;
 
 class SecurityController extends AbstractController
@@ -146,6 +147,36 @@ class SecurityController extends AbstractController
             Session::addFlash('success', 'Utilisateur banni !');
 
             $this->redirectTo('home', 'users');
+        }
+    }
+
+    public function closeTopic($id)
+    {
+
+        if (Session::isAdmin()) {
+            $topicManager = new TopicManager();
+
+            $data = "closed = '1'";
+
+            $topicManager->updateTopic($data, $id);
+            Session::addFlash('success', 'Topic fermé');
+
+            $this->redirectTo('forum', 'listPostsByTopic', $id);
+        }
+    }
+
+    public function openTopic($id)
+    {
+
+        if (Session::isAdmin()) {
+            $topicManager = new TopicManager();
+
+            $data = "closed = '0'";
+
+            $topicManager->updateTopic($data, $id);
+            Session::addFlash('success', 'Topic fermé');
+
+            $this->redirectTo('forum', 'listPostsByTopic', $id);
         }
     }
 

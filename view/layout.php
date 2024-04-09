@@ -13,7 +13,7 @@
     <title>FORUM</title>
 </head>
 
-<body class="bg-light bg-opacity-75">
+<body>
     <div class="mb-5 mx-5" id="wrapper">
         <div id="mainpage">
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
@@ -43,6 +43,7 @@
                             <?php } ?>
                             <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
                                 href="index.php?ctrl=forum&action=index">Catégories</a></li>
+                            <!-- <a id="btnSwitch" class="link-dark nav-item fs-5"><i class="fa-regular fa-moon"></i></a> -->
                         </div>
 
                         <div id="nav-right" class='d-flex justify-content-around'>
@@ -137,6 +138,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script
+        src="https://www.google.com/recaptcha/enterprise.js?render=6LfNf7UpAAAAAJV6fAjEP3zGE5GiL_LOj-726OcP"></script>
     <script src="<?= PUBLIC_DIR ?>/js/script.js"></script>
 </body>
 

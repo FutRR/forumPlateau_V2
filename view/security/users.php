@@ -9,7 +9,8 @@ if (!App\Session::isAdmin()) { ?>
     <h2>Loupé!</h2>
 <?php } else { ?>
     <?php foreach ($users as $user) { ?>
-        <div class="d-flex bg-light py-2 my-5 border border-dark-subtle rounded">
+        <div class="d-flex bg-light py-2 my-5 border border-dark-subtle rounded"
+            style="min-width: 35%; max-width: fit-content;">
             <div class="d-flex m-2"> <img class="img-fluid img-thumbnail rounded w-5"
                     src="public/img/avatar/<?= $user->getAvatar() ?>" alt="" style='object-fit: cover;'>
             </div>

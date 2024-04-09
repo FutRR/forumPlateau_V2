@@ -18,8 +18,14 @@ $category = $result["data"]['category'];
             class="btn btn-outline-dark py=1">Modifier</a>
         <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>"
             class="delete-btn btn btn-outline-danger py=1">Supprimer</a>
-
-    <?php } ?>
+        <?php if ($topic->getClosed() == 0) { ?>
+            <a href="index.php?ctrl=security&action=closeTopic&id=<?= $topic->getId() ?>"
+                class="delete-btn btn btn-outline-warning py=1">Fermer</a>
+        <?php } elseif ($topic->getClosed() == 1) { ?>
+            <a href="index.php?ctrl=security&action=openTopic&id=<?= $topic->getId() ?>"
+                class="delete-btn btn btn-outline-warning py=1">Ouvrir</a>
+        <?php }
+    } ?>
 
 </h1>
 
@@ -64,29 +70,34 @@ if (isset($posts)) {
     <p>Aucun Post</p>
 <?php }
 
-if (isset($_SESSION['user'])) {
-    ?>
+if ($topic->getClosed() == 1) { ?>
+    <p>Le topic est fermé - impossible de poster</p>
+<?php } else if ($topic->getClosed() == 0) {
 
-    <p>Ajouter un post : </p>
+    if (isset($_SESSION['user'])) {
+        ?>
 
-    <div class="container-fluid">
-        <div class="col align-self-center">
-            <form action="index.php?ctrl=forum&action=addPost&id=<?= $topic->getId() ?>" method="POST"
-                enctype="multipart/form-data" class="mb-3 mx-auto">
-                <p>
-                    <label class="form-label">
-                        Contenu :
-                        <textarea name="contenu" col='30' rows='10' class="form-control"
-                            placeholder="500 caractères max."></textarea>
-                    </label>
-                </p>
+            <p>Ajouter un post : </p>
 
-                <p>
-                    <label class="form-label">
-                        <input class="btn btn-outline-dark" type="submit" name="submit" value="Poster">
-                    </label>
-                </p>
-            </form>
-        </div>
-    </div>
-<?php } ?>
+            <div class="container-fluid">
+                <div class="col align-self-center">
+                    <form action="index.php?ctrl=forum&action=addPost&id=<?= $topic->getId() ?>" method="POST"
+                        enctype="multipart/form-data" class="mb-3 mx-auto">
+                        <p>
+                            <label class="form-label">
+                                Contenu :
+                                <textarea name="contenu" col='30' rows='10' class="form-control"
+                                    placeholder="500 caractères max."></textarea>
+                            </label>
+                        </p>
+
+                        <p>
+                            <label class="form-label">
+                                <input class="btn btn-outline-dark" type="submit" name="submit" value="Poster">
+                            </label>
+                        </p>
+                    </form>
+                </div>
+            </div>
+    <?php }
+} ?>

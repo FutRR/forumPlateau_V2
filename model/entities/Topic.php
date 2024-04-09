@@ -15,7 +15,7 @@ final class Topic extends Entity
     private User $user;
     private Category $category;
     private \DateTime $dateCreation;
-    private bool $closed;
+    private int $closed;
 
     public function __construct($data)
     {
@@ -122,7 +122,7 @@ final class Topic extends Entity
     /**
      * Get the value of closed
      */
-    public function getClosed(): bool
+    public function getClosed(): int
     {
         return $this->closed;
     }
@@ -132,7 +132,7 @@ final class Topic extends Entity
      *
      * @return  self
      */
-    public function setClosed(bool $closed)
+    public function setClosed(int $closed)
     {
         $this->closed = $closed;
 
