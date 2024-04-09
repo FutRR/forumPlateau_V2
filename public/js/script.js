@@ -1,9 +1,8 @@
-function onClick(e) {
-  e.preventDefault();
-  grecaptcha.enterprise.ready(async () => {
-    const token = await grecaptcha.enterprise.execute(
-      "6LfNf7UpAAAAAJV6fAjEP3zGE5GiL_LOj-726OcP",
-      { action: "LOGIN" }
-    );
+const form = document.querySelectorAll(".response-form");
+var button = document.querySelectorAll(".toggle-form");
+
+function toggle() {
+  button.addEventListener("click", function () {
+    form.style.display = "block";
   });
 }

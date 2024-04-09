@@ -23,6 +23,7 @@ class SecurityController extends AbstractController
             $password1 = filter_input(INPUT_POST, 'password1', FILTER_SANITIZE_SPECIAL_CHARS);
             $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_SPECIAL_CHARS);
 
+            // verifying if username, email & both password passed the filter input
             if ($username && $email && $password1 && $password2) {
 
                 // verifying if email is already taken
@@ -34,8 +35,10 @@ class SecurityController extends AbstractController
                         //verifying if password is the same on both inputs & if password is at least 5 characters long
                         if ($password1 == $password2 && strlen($password1) >= 5) {
 
+                            // hashing password to store it secure in database
                             $passwordHash = password_hash($password1, PASSWORD_DEFAULT);
 
+                            // adding data to table / creating user
                             $userManager->add([
                                 "username" => $username,
                                 "email" => $email,
@@ -76,25 +79,44 @@ class SecurityController extends AbstractController
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            if ($username && $password) {
+            // honey pot field
+            $honeypot = $_POST["firstname"];
 
-                $user = $userManager->findOneByUsername($username);
+            // if the field is completed, the login is cancelled
+            if (!empty($honeypot)) {
+                $this->redirectTo("security", "login");
+            } else {
 
-                if ($user) {
-                    $hash = $user->getPassword();
+                // verifying if username & password passed the filter input
+                if ($username && $password) {
 
-                    if (password_verify($password, $hash)) {
-                        if ($user->getStatus() == 0) {
-                            $_SESSION["user"] = $user;
-                            $this->redirectTo('home', 'index');
-                        } elseif ($user->getStatus() == 1) {
-                            Session::addFlash('error', 'Vous êtes banni');
-                            $this->redirectTo('security', 'login');
-                        } elseif ($user->getStatus() == 2) {
+                    $user = $userManager->findOneByUsername($username);
+
+                    // verifying if the username exists in database
+                    if ($user) {
+                        $hash = $user->getPassword();
+
+                        // checkq the stored hashed password with the typed password
+                        if (password_verify($password, $hash)) {
+                            // if the user is not banned
+                            if ($user->getStatus() == 0) {
+                                $_SESSION["user"] = $user;
+                                $this->redirectTo('home', 'index');
+                                // if the user is banned
+                            } elseif ($user->getStatus() == 1) {
+                                Session::addFlash('error', 'Vous êtes banni');
+                                $this->redirectTo('security', 'login');
+                                // if the user deleted their account
+                            } elseif ($user->getStatus() == 2) {
+                                $this->redirectTo('security', 'login');
+                            }
+                        } else {
+                            Session::addFlash('error', 'Mot de passe invalide!');
                             $this->redirectTo('security', 'login');
                         }
+
                     } else {
-                        Session::addFlash('error', 'Mot de passe invalide!');
+                        Session::addFlash("error", "Nom d'utilisateur invalide!");
                         $this->redirectTo('security', 'login');
                     }
 
@@ -102,10 +124,6 @@ class SecurityController extends AbstractController
                     Session::addFlash("error", "Nom d'utilisateur ou mot de passe invalide!");
                     $this->redirectTo('security', 'login');
                 }
-
-            } else {
-                Session::addFlash("error", "Nom d'utilisateur ou mot de passe invalide!");
-                $this->redirectTo('security', 'login');
             }
 
         }
@@ -113,6 +131,7 @@ class SecurityController extends AbstractController
             "meta_description" => "Connection au forum",
             "view" => VIEW_DIR . "security/login.php",
         ];
+
 
     }
     public function logout()

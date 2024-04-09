@@ -522,6 +522,7 @@ class ForumController extends AbstractController implements ControllerInterface
             $contenu = filter_input(INPUT_POST, 'contenu', FILTER_SANITIZE_SPECIAL_CHARS);
 
             if ($contenu) {
+                // verifying if the content of the post is inferior to 500 characters
                 if (mb_strlen($contenu) < 500) {
 
                     $data = "contenu = '" . $contenu . "',
@@ -535,7 +536,7 @@ class ForumController extends AbstractController implements ControllerInterface
                     $this->redirectTo('forum', 'listPostsByTopic', $topicId);
                 }
             }
-
         }
     }
+
 }

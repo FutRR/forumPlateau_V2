@@ -4,6 +4,14 @@
     <div class="col align-self-center">
         <form action="index.php?ctrl=security&action=login" method="POST" enctype="multipart/form-data"
             class="mb-3 mx-auto">
+
+            <!-- HoneyPot (only a bot can see the field) -->
+            <p>
+                <label class="form-label">
+                    <input type="text" name="firstname" class="hide-robot">
+                </label>
+            </p>
+
             <p>
                 <label class="form-label">
                     Nom d'utilisateur :

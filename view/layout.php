@@ -118,28 +118,26 @@
                 return confirm("Êtes-vous sûr de vouloir débannir cet utilisateur ?")
             })
 
-            tinymce.init({
-                selector: '.post',
-                menubar: false,
-                plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount'
-                ],
-                toolbar: 'undo redo | formatselect | ' +
-                    'bold italic backcolor | alignleft aligncenter ' +
-                    'alignright alignjustify | bullist numlist outdent indent | ' +
-                    'removeformat | help',
-                content_css: '//www.tiny.cloud/css/codepen.min.css'
-            });
+            // tinymce.init({
+            //     selector: '.post',
+            //     menubar: false,
+            //     plugins: [
+            //         'advlist autolink lists link image charmap print preview anchor',
+            //         'searchreplace visualblocks code fullscreen',
+            //         'insertdatetime media table paste code help wordcount'
+            //     ],
+            //     toolbar: 'undo redo | formatselect | ' +
+            //         'bold italic backcolor | alignleft aligncenter ' +
+            //         'alignright alignjustify | bullist numlist outdent indent | ' +
+            //         'removeformat | help',
+            //     content_css: '//www.tiny.cloud/css/codepen.min.css'
+            // });
         })
     </script>
     <script src="https://kit.fontawesome.com/19a031a4c5.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script
-        src="https://www.google.com/recaptcha/enterprise.js?render=6LfNf7UpAAAAAJV6fAjEP3zGE5GiL_LOj-726OcP"></script>
     <script src="<?= PUBLIC_DIR ?>/js/script.js"></script>
 </body>
 
