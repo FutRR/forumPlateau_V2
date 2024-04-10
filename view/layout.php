@@ -26,27 +26,25 @@
             <header>
                 <nav class="navbar navbar-expand-lg mb-5">
                     <div class="container-fluid d-flex align-items-center justify-content-between">
+                        <a href="index.php?ctrl=home"><img class="logo" src="public/img/logo/ForumV12.png" alt=""></a>
 
-                        <div id="nav-left">
-                            <a class="navbar-br home" href="index.php?ctrl=home"><img
-                                    class="logo d-iflex align-items-center" src="public/img/logo/ForumV12.png"
-                                    alt=""></a>
-                            </li>
+                        <div id="nav-left" class="align-items-start">
+
                             <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                href="index.php">Accueil</a></li>
+                                href="index.php">Accueil</a>
                             <?php
                             // si l'utiliseur connecté est un admin
                             if (App\Session::isAdmin()) {
                                 ?>
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=home&action=users">Utilisateurs</a></li>
+                                    href="index.php?ctrl=home&action=users">Utilisateurs</a>
                             <?php } ?>
                             <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                href="index.php?ctrl=forum&action=index">Catégories</a></li>
+                                href="index.php?ctrl=forum&action=index">Catégories</a>
                             <!-- <a id="btnSwitch" class="link-dark nav-item fs-5"><i class="fa-regular fa-moon"></i></a> -->
                         </div>
 
-                        <div id="nav-right" class='d-flex justify-content-around align-items-center'>
+                        <div id="nav-right">
                             <?php
                             // si l'utilisateur est connecté 
                             if (App\Session::getUser()) {
@@ -59,14 +57,14 @@
                                 </a>
 
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
+                                    href="index.php?ctrl=security&action=logout">Déconnexion</a>
                                 <?php
                             } else {
                                 ?>
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=security&action=login">Connexion</a></li>
+                                    href="index.php?ctrl=security&action=login">Connexion</a>
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=security&action=register">Inscription</a></li>
+                                    href="index.php?ctrl=security&action=register">Inscription</a>
                                 <?php
                             }
                             ?>
