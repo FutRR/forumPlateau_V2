@@ -1,8 +1,8 @@
-const form = document.querySelectorAll(".response-form");
-var button = document.querySelectorAll(".toggle-form");
+const buttons = document.querySelectorAll(".toggle-form");
+const forms = document.querySelectorAll(".response-form");
 
-function toggle() {
+buttons.forEach((button, index) => {
   button.addEventListener("click", function () {
-    form.style.display = "block";
+    forms[index].classList.toggle("response-form");
   });
-}
+});

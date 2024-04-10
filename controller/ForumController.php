@@ -525,10 +525,7 @@ class ForumController extends AbstractController implements ControllerInterface
                 // verifying if the content of the post is inferior to 500 characters
                 if (mb_strlen($contenu) < 500) {
 
-                    $data = "contenu = '" . $contenu . "',
-                            user_id = '" . $userId . "'";
-
-                    $postManager->updatePost($data, $id);
+                    $postManager->add(['contenu' => $contenu, 'topic_id' => $topicId, 'user_id' => $userId, 'post_id' => $id]);
                     Session::addFlash('success', 'Post créé !');
                     $this->redirectTo('forum', 'listPostsByTopic', $topicId);
                 } else {

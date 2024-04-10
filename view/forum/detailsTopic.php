@@ -38,7 +38,7 @@ if (isset($posts)) {
     foreach ($posts as $post) { ?>
         <div class="d-flex bg-light py-2 my-5 border border-dark-subtle rounded"
             style="min-width: 35%; max-width: fit-content;">
-            <div class="d-flex m-2"><img class="img-thumbnail rounded w-5"
+            <div class="m-2"><img class="img-thumbnail rounded w-5" style="object-fit-cover"
                     src="public/img/avatar/<?= $post->getUser()->getAvatar() ?>" alt="">
             </div>
             <div class="d-flex flex-column">
@@ -58,23 +58,22 @@ if (isset($posts)) {
                     <div class="response-form">
                         <form action="index.php?ctrl=forum&action=respondPost&id=<?= $topic->getId() ?>" method="POST"
                             enctype="multipart/form-data" class="mb-3 mx-auto">
-                            <p>
+                            <div>
                                 <label class="form-label">
                                     Contenu :
-                                    <textarea name="contenu" col='30' rows='10' class="form-control"
-                                        placeholder="500 caractères max.">@<?= $post->getUser() ?></textarea>
+                                    <textarea name="contenu" rows='10' class="form-control"
+                                        placeholder="500 caractères max.">@<?= $post->getUser() ?> </textarea>
                                 </label>
-                            </p>
+                            </div>
 
-                            <p>
+                            <div>
                                 <label class="form-label">
                                     <input class="btn btn-outline-dark" type="submit" name="submit" value="Poster">
                                 </label>
-                            </p>
+                            </div>
                         </form>
                     </div>
                 <?php } ?>
-
                 <div class="d-flex">
                     <!-- if the current user is an admin or the author of this topic -->
                     <?php if ($_SESSION['user'] == $post->getUser() || App\Session::isAdmin()) { ?>
@@ -108,19 +107,19 @@ if ($topic->getClosed() == 1) { ?>
                 <div class="col align-self-center">
                     <form action="index.php?ctrl=forum&action=addPost&id=<?= $topic->getId() ?>" method="POST"
                         enctype="multipart/form-data" class="mb-3 mx-auto">
-                        <p>
+                        <div>
                             <label class="form-label">
                                 Contenu :
-                                <textarea name="contenu" col='30' rows='10' class="form-control"
+                                <textarea name="contenu" rows='10' class="form-control" style='min-width: 100%'
                                     placeholder="500 caractères max."></textarea>
                             </label>
-                        </p>
+                        </div>
 
-                        <p>
+                        <div>
                             <label class="form-label">
                                 <input class="btn btn-outline-dark" type="submit" name="submit" value="Poster">
                             </label>
-                        </p>
+                        </div>
                     </form>
                 </div>
             </div>
