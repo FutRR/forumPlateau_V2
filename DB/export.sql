@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS `category` (
   PRIMARY KEY (`id_category`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Listage des données de la table forum_maximefutterer.category : ~5 rows (environ)
-INSERT IGNORE INTO `category` (`id_category`, `name`) VALUES
+-- Listage des données de la table forum_maximefutterer.category : ~4 rows (environ)
+REPLACE INTO `category` (`id_category`, `name`) VALUES
 	(1, 'Général'),
 	(2, '18 - 25'),
 	(3, 'Musique'),
@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `post` (
   `id_post` int NOT NULL AUTO_INCREMENT,
   `contenu` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `dateMessage` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `closed` tinyint(1) NOT NULL DEFAULT '0',
   `user_id` int DEFAULT NULL,
   `topic_id` int DEFAULT NULL,
   `post_id` int DEFAULT NULL,
@@ -50,36 +49,37 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT `FK_post_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id_post`) ON DELETE SET NULL,
   CONSTRAINT `FK_post_topic` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id_topic`) ON DELETE CASCADE,
   CONSTRAINT `FK_post_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- Listage des données de la table forum_maximefutterer.post : ~17 rows (environ)
-INSERT IGNORE INTO `post` (`id_post`, `contenu`, `dateMessage`, `closed`, `user_id`, `topic_id`, `post_id`) VALUES
-	(1, 'blablablou, blou bli ?', '2024-03-27 16:16:17', 0, 2, 1, NULL),
-	(6, 'classic', '2024-04-03 14:10:23', 0, 4, 6, NULL),
-	(7, 'bonjour', '2024-04-03 14:11:19', 0, 3, 6, NULL),
-	(11, 'love me some air guitar!', '2024-04-04 09:24:01', 0, 3, 6, NULL),
-	(15, 'woaw', '2024-04-04 10:29:37', 0, 5, 13, NULL),
-	(16, 'jador', '2024-04-04 10:29:47', 0, 5, 13, NULL),
-	(17, '+2', '2024-04-04 10:31:06', 0, 4, 13, NULL),
-	(18, 'votez &#60;blank&#62;', '2024-04-04 10:49:58', 0, 3, 14, NULL),
-	(19, 'Mason or Agatha ?', '2024-04-04 11:14:11', 0, 3, 15, NULL),
-	(20, 'carrément!', '2024-04-04 16:26:14', 0, 3, 1, NULL),
-	(21, '3 ptits chats', '2024-04-05 16:43:00', 0, 3, 7, NULL),
-	(23, 'bkabkabka', '2024-04-05 20:40:06', 0, 3, 16, NULL),
-	(29, 'Privet, kak dela ?', '2024-04-08 11:03:19', 0, 6, 19, NULL),
-	(30, 'vsë khorosho', '2024-04-08 11:03:41', 0, 6, 19, NULL),
-	(31, 'tenosia...', '2024-04-08 11:04:21', 0, 6, 15, NULL),
-	(32, 'blablba', '2024-04-08 13:50:16', 0, 4, 20, NULL),
-	(35, 'test 1 2', '2024-04-08 14:54:15', 0, 8, 22, NULL),
-	(37, 'pas simple', '2024-04-09 11:48:38', 0, 4, 23, NULL);
+REPLACE INTO `post` (`id_post`, `contenu`, `dateMessage`, `user_id`, `topic_id`, `post_id`) VALUES
+	(1, 'blablablou, blou bli ?', '2024-03-27 16:16:17', 2, 1, NULL),
+	(7, 'bonjour', '2024-04-03 14:11:19', 3, 6, NULL),
+	(11, 'love me some air guitar!', '2024-04-04 09:24:01', 3, 6, NULL),
+	(15, 'woaw', '2024-04-04 10:29:37', 5, 13, NULL),
+	(16, 'jador', '2024-04-04 10:29:47', 5, 13, NULL),
+	(17, '+2', '2024-04-04 10:31:06', 4, 13, NULL),
+	(18, 'votez &#60;blank&#62;', '2024-04-04 10:49:58', 3, 14, NULL),
+	(19, 'Mason or Agatha ?', '2024-04-04 11:14:11', 3, 15, NULL),
+	(20, 'carrément!', '2024-04-04 16:26:14', 3, 1, NULL),
+	(21, '3 ptits chats', '2024-04-05 16:43:00', 3, 7, NULL),
+	(23, 'bkabkabka', '2024-04-05 20:40:06', 3, 16, NULL),
+	(29, 'Privet, kak dela ?', '2024-04-08 11:03:19', 6, 19, NULL),
+	(30, 'vsë khorosho', '2024-04-08 11:03:41', 6, 19, NULL),
+	(31, 'tenosia...', '2024-04-08 11:04:21', 6, 15, NULL),
+	(32, 'blablba', '2024-04-08 13:50:16', 4, 20, NULL),
+	(35, 'test 1 2', '2024-04-08 14:54:15', 8, 22, NULL),
+	(37, 'pas simple', '2024-04-09 11:48:38', 4, 23, NULL),
+	(39, 'ptn de textarea qui s&#39;élargie pas', '2024-04-10 09:00:45', 3, 14, NULL),
+	(40, 'test', '2024-04-10 09:39:19', 3, 15, NULL);
 
 -- Listage de la structure de table forum_maximefutterer. topic
 CREATE TABLE IF NOT EXISTS `topic` (
   `id_topic` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `dateCreation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `category_id` int NOT NULL,
   `user_id` int DEFAULT NULL,
+  `category_id` int NOT NULL,
   `closed` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_topic`),
   KEY `categorie_id` (`category_id`) USING BTREE,
@@ -88,20 +88,20 @@ CREATE TABLE IF NOT EXISTS `topic` (
   CONSTRAINT `FK_topic_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Listage des données de la table forum_maximefutterer.topic : ~0 rows (environ)
-INSERT IGNORE INTO `topic` (`id_topic`, `title`, `dateCreation`, `category_id`, `user_id`, `closed`) VALUES
-	(1, 'CSS tips', '2024-03-27 15:57:34', 1, 2, 0),
-	(6, 'Guitare acoustique : Classique ou Folk ?', '2024-04-03 14:10:08', 3, 4, 0),
-	(7, 'Cats', '2024-04-03 16:08:37', 1, 3, 0),
-	(13, '50 shades of gray', '2024-04-04 10:29:37', 4, 5, 0),
-	(14, 'test', '2024-04-04 10:49:58', 2, 3, 0),
-	(15, 'Chivalry 2', '2024-04-04 11:14:11', 1, 3, 0),
-	(16, 'blabka', '2024-04-05 20:40:06', 1, 3, 0),
-	(17, 'The Witcher', '2024-04-08 10:59:20', 4, 6, 0),
-	(19, 'Metro 2033', '2024-04-08 11:03:19', 4, 6, 0),
-	(20, 'ForumPlateau_V2 elan', '2024-04-08 13:50:16', 5, 4, 0),
-	(22, 'test', '2024-04-08 14:54:15', 3, 8, 0),
-	(23, 'captcha', '2024-04-09 11:48:38', 5, 4, 0);
+-- Listage des données de la table forum_maximefutterer.topic : ~11 rows (environ)
+REPLACE INTO `topic` (`id_topic`, `title`, `dateCreation`, `user_id`, `category_id`, `closed`) VALUES
+	(1, 'CSS tips', '2024-03-27 15:57:34', 2, 1, 0),
+	(6, 'Guitare acoustique : Classique ou Folk ?', '2024-04-03 14:10:08', 4, 3, 0),
+	(7, 'Cats', '2024-04-03 16:08:37', 3, 1, 0),
+	(13, '50 shades of gray', '2024-04-04 10:29:37', 5, 4, 0),
+	(14, 'test', '2024-04-04 10:49:58', 3, 2, 0),
+	(15, 'Chivalry 2', '2024-04-04 11:14:11', 3, 1, 0),
+	(16, 'blabka', '2024-04-05 20:40:06', 3, 1, 0),
+	(17, 'The Witcher', '2024-04-08 10:59:20', 6, 4, 0),
+	(19, 'Metro 2033', '2024-04-08 11:03:19', 6, 4, 0),
+	(20, 'ForumPlateau_V2 elan', '2024-04-08 13:50:16', 4, 5, 0),
+	(22, 'test', '2024-04-08 14:54:15', 8, 3, 0),
+	(23, 'captcha', '2024-04-09 11:48:38', 4, 5, 0);
 
 -- Listage de la structure de table forum_maximefutterer. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -111,17 +111,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `registerDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT 'role_user',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT 'User-avatar.png',
+  `avatar` varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT 'User-avatar.png',
   `status` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- Listage des données de la table forum_maximefutterer.user : ~7 rows (environ)
-INSERT IGNORE INTO `user` (`id_user`, `username`, `email`, `password`, `registerDate`, `role`, `avatar`, `status`) VALUES
+REPLACE INTO `user` (`id_user`, `username`, `email`, `password`, `registerDate`, `role`, `avatar`, `status`) VALUES
 	(2, 'admin1', 'admin@gmail.com', '$2y$10$uFKy8AbYNFOWoNBmCCxbAOXUSuDaY.xHR6yy4.ZjIwwkvPLxeyOp2*', '2024-03-27 15:57:05', 'role_admin', 'User-avatar.png', 1),
 	(3, 'futrr_', 'max@exemple.com', '$2y$10$7ZsR7PvyRgLX1FJ8iKJfKuvINM4fwn0vea2DFG1lvR51E5Gn.VOma', '2024-04-02 15:46:09', 'role_user', '6613a33ca10915.96096367.webp', 0),
 	(4, 'admin', 'admin@exemple.com', '$2y$10$0QYfIdBUiHmWT/fe2nt9pOzHSt1GIWqw8djk5HZjI3vSoTHj0LtrO', '2024-04-03 13:39:40', 'role_admin', '6613a48a04d0a7.72813701.webp', 0),
-	(5, 'kev', 'azerty2@gmail.com', '$2y$10$CBbVlbc8YwG7oHHsQcyqX.mtQu/zRBk9eJo4ewr7vF/WSxBKbxb6e', '2024-04-04 10:28:45', 'role_user', 'User-avatar.png', 1),
+	(5, 'kev', 'azerty2@gmail.com', '$2y$10$CBbVlbc8YwG7oHHsQcyqX.mtQu/zRBk9eJo4ewr7vF/WSxBKbxb6e', '2024-04-04 10:28:45', 'role_user', 'User-avatar.png', 0),
 	(6, 'testeur', 'test@exe.fr', '$2y$10$nR7NEg5xDLfbvP/Qx7FiNu7clqW9zSd4642itpCx5hXtPbnOuzSSK', '2024-04-05 20:41:18', 'role_user', '6613d60a16afb5.26446301.webp', 0),
 	(8, 'Utilisateur supprimé', 'Utilisateur supprimé', '$2y$10$y0eQ8hWk02h.i8cAtwWTzeC/GLNSDULpjj.uJ6P.BCwnrjOeStigi', '2024-04-08 14:53:52', 'role_user', '', 2),
 	(9, 'Utilisateur supprimé', 'Utilisateur supprimé', '$2y$10$pTXwHdycb0IA37qmRmiMd.o3uBXf99L82KS3Rjq9tXwBHwJxW1lCe', '2024-04-08 15:02:19', 'role_user', '', 2);
