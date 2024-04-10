@@ -51,25 +51,25 @@ if (isset($_SESSION['user'])) {
         <div class="col align-self-center">
             <form action="index.php?ctrl=forum&action=addTopic&id=<?= $category->getId() ?>" method="POST"
                 enctype="multipart/form-data" class="mb-3 mx-auto">
-                <p>
+                <div>
                     <label class="form-label">
                         Titre :
                         <input type="text" name="title" class="form-control">
                     </label>
-                </p>
+                </div>
 
-                <p>
+                <div>
                     <label class="form-label">
                         Contenu :
                         <textarea class="form-control" name="contenu" cols="30" rows="10"></textarea>
                     </label>
-                </p>
+                </div>
 
-                <p>
+                <div>
                     <label class="form-label">
                         <input class="btn btn-outline-dark" type="submit" name="submit" value="Poster">
                     </label>
-                </p>
+                </div>
             </form>
         </div>
     </div>

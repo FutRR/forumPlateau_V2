@@ -30,18 +30,18 @@ if (App\Session::isAdmin()) {
         <div class="col align-self-center">
             <form action="index.php?ctrl=forum&action=addCategory" method="POST" enctype="multipart/form-data"
                 class="mb-3 mx-auto">
-                <p>
+                <div>
                     <label class="form-label">
                         Nom :
                         <input type="text" name="name" class="form-control">
                     </label>
-                </p>
+                </div>
 
-                <p>
+                <div>
                     <label class="form-label">
                         <input class="btn btn-dark" type="submit" name="submit" value="Créer">
                     </label>
-                </p>
+                </div>
             </form>
         </div>
     <?php }

@@ -7,30 +7,32 @@ $user = $result['data']['user'];
     <div class="col align-self-center">
         <form action="index.php?ctrl=forum&action=updatePassword&id=<?= $user->getId() ?>" method="POST"
             enctype="multipart/form-data" class="mb-3 mx-auto">
-            <p>
+            <div>
                 <label class="form-label">
                     Mot de passe actuel :
                     <input type="password" name="current" class="form-control">
                 </label>
-            </p>
-            <p>
+            </div>
+
+            <div>
                 <label class="form-label">
                     Nouveau mot de passe :
                     <input type="password" name="password1" class="form-control">
                 </label>
-            </p>
-            <p>
+            </div>
+
+            <div>
                 <label class="form-label">
                     Confirmer le nouveau mot de passe :
                     <input type="password" name="password2" class="form-control">
                 </label>
-            </p>
+            </div>
 
-            <p>
+            <div>
                 <label class="form-label">
                     <input class="btn btn-outline-dark" type="submit" name="submit" value="Modifier">
                 </label>
-            </p>
+                </p>
         </form>
     </div>
 </div>

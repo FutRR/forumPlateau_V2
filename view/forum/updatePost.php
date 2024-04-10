@@ -7,19 +7,19 @@ $post = $result['data']['post'];
     <div class="col align-self-center">
         <form action="index.php?ctrl=forum&action=updatePost&id=<?= $post->getId() ?>" method="POST"
             enctype="multipart/form-data" class="mb-3 mx-auto">
-            <p>
+            <div>
                 <label class="form-label">
                     Contenu :
                     <textarea name="contenu" col='30' rows='10' class="form-control"
                         placeholder="500 caractères max."><?= $post->getContenu() ?></textarea>
                 </label>
-            </p>
+            </div>
 
-            <p>
+            <div>
                 <label class="form-label">
                     <input class="btn btn-outline-dark" type="submit" name="submit" value="Poster">
                 </label>
-            </p>
+            </div>
         </form>
     </div>
 </div>
