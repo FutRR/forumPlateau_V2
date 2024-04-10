@@ -38,6 +38,10 @@ if (isset($posts)) {
     foreach ($posts as $post) { ?>
         <div class="d-flex bg-light py-2 my-5 border border-dark-subtle rounded"
             style="min-width: 35%; max-width: fit-content;">
+            <?php if (!is_null($post->getPost())) { ?>
+                <p>En réponse à <?= $post->getPost()->getUser() ?></p>
+            <?php } ?>
+
             <div class="m-2"><img class="img-thumbnail rounded w-5" style="object-fit-cover"
                     src="public/img/avatar/<?= $post->getUser()->getAvatar() ?>" alt="">
             </div>

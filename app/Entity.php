@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+use Model\Entities\Post;
+
 abstract class Entity
 {
 
@@ -13,6 +15,7 @@ abstract class Entity
             $fieldArray = explode("_", $field);
 
             if (isset($fieldArray[1]) && $fieldArray[1] == "id") {
+                $className = "Model\Entities\\" . ucfirst($fieldArray[0]);
                 // manName = TopicManager 
                 $manName = ucfirst($fieldArray[0]) . "Manager";
                 // FQCName = Model\Managers\TopicManager;
@@ -21,7 +24,13 @@ abstract class Entity
                 // man = new Model\Managers\TopicManager
                 $man = new $FQCName();
                 // value = Model\Managers\TopicManager->findOneById(1)
-                $value = $man->findOneById($value);
+                $entity = $man->findOneById($value);
+
+                if ($entity instanceof $className) {
+                    $value = $entity;
+                } else {
+                    throw new \Exception("Aucun enregistrement trouvé pour la clé étrangère '$field'");
+                }
             }
 
             // fabrication du nom du setter à appeler (ex: setName)

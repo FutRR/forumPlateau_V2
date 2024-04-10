@@ -46,14 +46,15 @@
                             <!-- <a id="btnSwitch" class="link-dark nav-item fs-5"><i class="fa-regular fa-moon"></i></a> -->
                         </div>
 
-                        <div id="nav-right" class='d-flex justify-content-around'>
+                        <div id="nav-right" class='d-flex justify-content-around align-items-center'>
                             <?php
                             // si l'utilisateur est connecté 
                             if (App\Session::getUser()) {
                                 ?>
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
                                     href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">
-                                    <img class='img-thumbnail rounded w-5' style='width: 50px;'
+                                    <img class='nav-item img-thumbnail rounded w-5'
+                                        style='width: 100px; height: 100px; object-fit: cover;'
                                         src="public/img/avatar/<?= App\Session::getUser()->getAvatar() ?>" alt="">
                                 </a>
 
