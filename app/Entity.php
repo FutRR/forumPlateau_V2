@@ -15,7 +15,7 @@ abstract class Entity
             $fieldArray = explode("_", $field);
 
             if (isset($fieldArray[1]) && $fieldArray[1] == "id") {
-                $className = "Model\Entities\\" . ucfirst($fieldArray[0]);
+                // $className = "Model\Entities\\" . ucfirst($fieldArray[0]);
                 // manName = TopicManager 
                 $manName = ucfirst($fieldArray[0]) . "Manager";
                 // FQCName = Model\Managers\TopicManager;
@@ -24,13 +24,14 @@ abstract class Entity
                 // man = new Model\Managers\TopicManager
                 $man = new $FQCName();
                 // value = Model\Managers\TopicManager->findOneById(1)
-                $entity = $man->findOneById($value);
+                $value = $man->findOneById($value);
 
-                if ($entity instanceof $className) {
-                    $value = $entity;
-                } else {
-                    throw new \Exception("Aucun enregistrement trouvé pour la clé étrangère '$field'");
-                }
+                // if ($entity instanceof $className) {
+                //     throw new \Exception($value);
+                // } else {
+                //     throw new \Exception(get_class($this));
+                // }
+
             }
 
             // fabrication du nom du setter à appeler (ex: setName)

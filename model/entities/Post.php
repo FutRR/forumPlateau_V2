@@ -15,7 +15,7 @@ final class Post extends Entity
     private \DateTime $dateMessage;
     private User $user;
     private Topic $topic;
-    private Post $post;
+    // private Post $post;
 
     // chaque entité aura le même constructeur grâce à la méthode hydrate (issue de App\Entity)
     public function __construct($data)
@@ -122,25 +122,25 @@ final class Post extends Entity
         return $this;
     }
 
-    /**
-     * Get the value of post
-     */
-    public function getPost(): Post
-    {
-        return $this->post;
-    }
+    // /**
+    //  * Get the value of post
+    //  */
+    // public function getPost(): Post
+    // {
+    //     return $this->post;
+    // }
 
-    /**
-     * Set the value of post
-     *
-     * @return  self
-     */
-    public function setPost(Post $post)
-    {
-        $this->post = $post;
+    // /**
+    //  * Set the value of post
+    //  *
+    //  * @return  self
+    //  */
+    // public function setPost(Post $post)
+    // {
+    //     $this->post = $post;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
 
     public function displayDateMessage()
