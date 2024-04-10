@@ -21,25 +21,16 @@ class HomeController extends AbstractController implements ControllerInterface
         $this->restrictTo("role_admin");
 
         $userManager = new UserManager();
-        $users = $userManager->findAll(['username', 'ASC']);
 
         if (isset($_POST['submit'])) {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
 
             if ($username) {
-                $userManager->findAllByUsername($username, ['username', 'ASC']);
-
-                $this->redirectTo('home', 'users');
-                return [
-                    "view" => VIEW_DIR . "security/users.php",
-                    "meta_description" => "Liste des utilisateurs du forum",
-                    "data" => [
-                        "users" => $users
-                    ]
-                ];
-
+                $users = $userManager->findAllByUsername($username, ['username', 'ASC']);
             }
 
+        } else {
+            $users = $userManager->findAll(['registerDate', 'DESC']);
         }
 
         return [
@@ -49,6 +40,7 @@ class HomeController extends AbstractController implements ControllerInterface
                 "users" => $users
             ]
         ];
+
     }
 
     public function rules()

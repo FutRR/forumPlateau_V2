@@ -83,7 +83,7 @@ class UserManager extends Manager
 
         $sql = "SELECT *
             FROM $this->tableName
-            WHERE username LIKE " . $username . "
+            WHERE username LIKE '%" . $username . "%'
             " . $orderQuery;
 
         return $this->getMultipleResults(
