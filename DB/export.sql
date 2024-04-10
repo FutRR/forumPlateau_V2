@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT `FK_post_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Listage des données de la table forum_maximefutterer.post : ~17 rows (environ)
+-- Listage des données de la table forum_maximefutterer.post : ~19 rows (environ)
 REPLACE INTO `post` (`id_post`, `contenu`, `dateMessage`, `user_id`, `topic_id`, `post_id`) VALUES
 	(1, 'blablablou, blou bli ?', '2024-03-27 16:16:17', 2, 1, NULL),
 	(7, 'bonjour', '2024-04-03 14:11:19', 3, 6, NULL),
@@ -61,7 +61,7 @@ REPLACE INTO `post` (`id_post`, `contenu`, `dateMessage`, `user_id`, `topic_id`,
 	(17, '+2', '2024-04-04 10:31:06', 4, 13, NULL),
 	(18, 'votez &#60;blank&#62;', '2024-04-04 10:49:58', 3, 14, NULL),
 	(19, 'Mason or Agatha ?', '2024-04-04 11:14:11', 3, 15, NULL),
-	(20, 'carrément!', '2024-04-04 16:26:14', 3, 1, NULL),
+	(20, 'carrément!', '2024-04-04 16:26:14', 3, 1, 1),
 	(21, '3 ptits chats', '2024-04-05 16:43:00', 3, 7, NULL),
 	(23, 'bkabkabka', '2024-04-05 20:40:06', 3, 16, NULL),
 	(29, 'Privet, kak dela ?', '2024-04-08 11:03:19', 6, 19, NULL),
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
   CONSTRAINT `FK_topic_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Listage des données de la table forum_maximefutterer.topic : ~11 rows (environ)
+-- Listage des données de la table forum_maximefutterer.topic : ~12 rows (environ)
 REPLACE INTO `topic` (`id_topic`, `title`, `dateCreation`, `user_id`, `category_id`, `closed`) VALUES
 	(1, 'CSS tips', '2024-03-27 15:57:34', 2, 1, 0),
 	(6, 'Guitare acoustique : Classique ou Folk ?', '2024-04-03 14:10:08', 4, 3, 0),
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 REPLACE INTO `user` (`id_user`, `username`, `email`, `password`, `registerDate`, `role`, `avatar`, `status`) VALUES
 	(2, 'admin1', 'admin@gmail.com', '$2y$10$uFKy8AbYNFOWoNBmCCxbAOXUSuDaY.xHR6yy4.ZjIwwkvPLxeyOp2*', '2024-03-27 15:57:05', 'role_admin', 'User-avatar.png', 1),
 	(3, 'futrr_', 'max@exemple.com', '$2y$10$7ZsR7PvyRgLX1FJ8iKJfKuvINM4fwn0vea2DFG1lvR51E5Gn.VOma', '2024-04-02 15:46:09', 'role_user', '6613a33ca10915.96096367.webp', 0),
-	(4, 'admin', 'admin@exemple.com', '$2y$10$0QYfIdBUiHmWT/fe2nt9pOzHSt1GIWqw8djk5HZjI3vSoTHj0LtrO', '2024-04-03 13:39:40', 'role_admin', '6613a48a04d0a7.72813701.webp', 0),
+	(4, 'admin', 'admin@exemple.com', '$2y$10$sEozIfFq7m/7qQ8j6I5IaeucT.xpEKOo7QRxiEVYi6W5IJyIJ5zF.', '2024-04-03 13:39:40', 'role_admin', '6613a48a04d0a7.72813701.webp', 0),
 	(5, 'kev', 'azerty2@gmail.com', '$2y$10$CBbVlbc8YwG7oHHsQcyqX.mtQu/zRBk9eJo4ewr7vF/WSxBKbxb6e', '2024-04-04 10:28:45', 'role_user', 'User-avatar.png', 0),
 	(6, 'testeur', 'test@exe.fr', '$2y$10$nR7NEg5xDLfbvP/Qx7FiNu7clqW9zSd4642itpCx5hXtPbnOuzSSK', '2024-04-05 20:41:18', 'role_user', '6613d60a16afb5.26446301.webp', 0),
 	(8, 'Utilisateur supprimé', 'Utilisateur supprimé', '$2y$10$y0eQ8hWk02h.i8cAtwWTzeC/GLNSDULpjj.uJ6P.BCwnrjOeStigi', '2024-04-08 14:53:52', 'role_user', '', 2),

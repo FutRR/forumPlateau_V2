@@ -54,7 +54,7 @@
                                 <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
                                     href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">
                                     <img class='nav-item img-thumbnail rounded w-5'
-                                        style='width: 100px; height: 100px; object-fit: cover;'
+                                        style='width: 75px; height: 75px; object-fit: cover;'
                                         src="public/img/avatar/<?= App\Session::getUser()->getAvatar() ?>" alt="">
                                 </a>
 
