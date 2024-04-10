@@ -75,4 +75,22 @@ class UserManager extends Manager
 
     }
 
+    public function findAllByUsername($username, $order = null)
+    {
+        $orderQuery = ($order) ?
+            "ORDER BY " . $order[0] . " " . $order[1] :
+            "";
+
+        $sql = "SELECT *
+            FROM $this->tableName
+            WHERE username LIKE " . $username . "
+            " . $orderQuery;
+
+        return $this->getMultipleResults(
+            DAO::select($sql),
+            $this->className
+        );
+
+    }
+
 }

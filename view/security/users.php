@@ -4,6 +4,12 @@ $users = $result['data']['users'];
 
 <h1>Liste des utilisateurs</h1>
 
+<form action="index.php?ctrl=home&action=users" class="form-inline" style="min-width: 35%; max-width: fit-content;">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Username" name="username">
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit" value="Search">
+    </div>
+</form>
 <?php
 if (!App\Session::isAdmin()) { ?>
     <h2>Loupé!</h2>
