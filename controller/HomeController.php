@@ -14,7 +14,7 @@ class HomeController extends AbstractController implements ControllerInterface
     public function index()
     {
         $categoryManager = new CategoryManager();
-        $categories = $categoryManager->findThree(["id_category", "ASC"]);
+        $categories = $categoryManager->findAll(["id_category", "ASC"]);
 
         return [
             "view" => VIEW_DIR . "home/home.php",
