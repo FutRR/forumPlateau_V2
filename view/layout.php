@@ -72,12 +72,12 @@
                                             </ul>
                                     </ul>
                                 <?php } else { ?>
-                                    <ul class="navbar-nav me-auto">
+                                    <ul class="navbar-nav">
                                         <li class="nav-item"><a
-                                                class="dropdown-item link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
+                                                class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                                 href="index.php?ctrl=security&action=login">Connexion</a></li>
                                         <li class="nav-item"><a
-                                                class="dropdown-item link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
+                                                class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                                 href="index.php?ctrl=security&action=register">Inscription</a></li>
                                     </ul>
                                 <?php } ?>

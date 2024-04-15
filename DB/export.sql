@@ -70,7 +70,6 @@ REPLACE INTO `post` (`id_post`, `contenu`, `dateMessage`, `user_id`, `topic_id`,
 	(32, 'blablba', '2024-04-08 13:50:16', 4, 20, NULL),
 	(35, 'test 1 2', '2024-04-08 14:54:15', 8, 22, NULL),
 	(37, 'pas simple', '2024-04-09 11:48:38', 4, 23, NULL),
-	(39, 'ptn de textarea qui s&#39;élargie pas', '2024-04-10 09:00:45', 3, 14, NULL),
 	(40, 'test', '2024-04-10 09:39:19', 3, 15, NULL);
 
 -- Listage de la structure de table forum_maximefutterer. topic
