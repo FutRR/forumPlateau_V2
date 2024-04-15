@@ -63,7 +63,7 @@
                                                 ?>
                                                 <li class="nav-item"><a
                                                         class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
-                                                        href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">Profile</a>
+                                                        href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">Profil</a>
                                                 </li>
 
                                                 <li class="nav-item"><a

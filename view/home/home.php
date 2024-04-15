@@ -15,15 +15,14 @@ $categories = $result['data']['categories'];
 <?php } ?>
 <div class="row row-cols-3">
     <?php foreach ($categories as $category) { ?>
-        <div class="card m-2">
+        <div class="card m-2" style='width: fit-content'>
             <div class="card-body">
                 <h3 class="card-title">
                     <?= $category->getName() ?>
                 </h3>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum nostrum laudantium enim
-                    obcaecati architecto.</p>
+
                 <a href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>"
-                    class="btn btn-outline-dark">Topics</a>
+                    class="btn btn-outline-dark">Voir les topics</a>
             </div>
         </div>
     <?php } ?>

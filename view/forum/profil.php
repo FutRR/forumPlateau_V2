@@ -27,9 +27,9 @@ if (!isset($_SESSION['user'])) { ?>
             <?php } ?>
 
         </h1>
-        <h3 class='d-flex'>
+        <div class='d-flex'>
             <img class="img-fluid img-thumbnail rounded w-5" src="public/img/avatar/<?= $profil->getAvatar() ?>" alt="">
-        </h3>
+        </div>
         <p>Inscris depuis le
             <?= $profil->displayRegisterDate() ?>
         </p>
