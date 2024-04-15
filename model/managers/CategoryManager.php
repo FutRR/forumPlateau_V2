@@ -24,4 +24,22 @@ class CategoryManager extends Manager
 
         return DAO::update($sql, ["id" => $id]);
     }
+
+    public function findThree($order = null)
+    {
+        $orderQuery = ($order) ?
+            "ORDER BY " . $order[0] . " " . $order[1] :
+            "";
+
+        $sql = "SELECT *
+            FROM category
+            " . $orderQuery;
+
+        return $this->getMultipleResults(
+            DAO::select($sql),
+            $this->className
+        );
+
+    }
+
 }

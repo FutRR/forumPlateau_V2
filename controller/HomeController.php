@@ -3,6 +3,9 @@ namespace Controller;
 
 use App\AbstractController;
 use App\ControllerInterface;
+use Model\Managers\CategoryManager;
+use Model\Managers\TopicManager;
+use Model\Managers\PostManager;
 use Model\Managers\UserManager;
 
 class HomeController extends AbstractController implements ControllerInterface
@@ -10,9 +13,16 @@ class HomeController extends AbstractController implements ControllerInterface
 
     public function index()
     {
+        $categoryManager = new CategoryManager();
+        $categories = $categoryManager->findThree(["id_category", "ASC"]);
+
         return [
             "view" => VIEW_DIR . "home/home.php",
-            "meta_description" => "Page d'accueil du forum"
+            "meta_description" => "Page d'accueil du forum",
+            "data" => [
+                "categories" => $categories
+            ]
+
         ];
     }
 
