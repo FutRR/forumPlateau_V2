@@ -24,50 +24,71 @@
                 <?= App\Session::getFlash("success") ?>
             </h3>
             <header>
-                <nav class="navbar navbar-expand-lg mb-5">
-                    <div class="container-fluid d-flex align-items-center justify-content-between">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid">
                         <a href="index.php?ctrl=home"><img class="logo" src="public/img/logo/ForumV12.png" alt=""></a>
-
-                        <div id="nav-left" class="align-items-start">
-
-                            <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                href="index.php">Accueil</a>
-                            <?php
-                            // si l'utiliseur connecté est un admin
-                            if (App\Session::isAdmin()) {
-                                ?>
-                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=home&action=users">Utilisateurs</a>
-                            <?php } ?>
-                            <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                href="index.php?ctrl=forum&action=index">Catégories</a>
-                            <!-- <a id="btnSwitch" class="link-dark nav-item fs-5"><i class="fa-regular fa-moon"></i></a> -->
-                        </div>
-
-                        <div id="nav-right">
-                            <?php
-                            // si l'utilisateur est connecté 
-                            if (App\Session::getUser()) {
-                                ?>
-                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">
-                                    <img class='nav-item img-thumbnail rounded w-5'
-                                        style='width: 75px; height: 75px; object-fit: cover;'
-                                        src="public/img/avatar/<?= App\Session::getUser()->getAvatar() ?>" alt="">
-                                </a>
-
-                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=security&action=logout">Déconnexion</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item"><a class="link-dark nav-link link-offset-2 link-underline
+                                    link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                        href="index.php">Accueil</a></li>
                                 <?php
-                            } else {
+                                // si l'utiliseur connecté est un admin
+                                if (App\Session::isAdmin()) {
+                                    ?>
+                                    <li class="nav-item"><a class="link-dark nav-link link-offset-2 link-underline
+                                        link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                            href="index.php?ctrl=home&action=users">Utilisateurs</a></li>
+                                <?php } ?>
+                                <li class="nav-item"><a
+                                        class="link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                        href="index.php?ctrl=forum&action=index">Catégories</a></li>
+                                <!-- <a id="btnSwitch" class="link-dark nav-link fs-5"><i class="fa-regular fa-moon"></i></a> -->
+                            </ul>
+
+                            <div class="nav navbar-nav">
+                                <?php if (App\Session::getUser()) { ?>
+                                    <ul class="navbar-nav navbar-right">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                                href="#"><span class="fs-3"><?= App\Session::getUser() ?></span></a>
+                                            <ul class="dropdown-menu">
+                                                <?php
+                                                // si l'utilisateur est connecté 
+                                                ?>
+                                                <li class="nav-item"><a
+                                                        class="link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                                        href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">Profile</a>
+                                                </li>
+
+                                                <li class="nav-item"><a
+                                                        class="link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                                        href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
+                                            </ul>
+                                    </ul>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <ul class="navbar-nav navbar-right">
+                                        <li class="nav-item"><a
+                                                class="dropdown-item link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                                href="index.php?ctrl=security&action=login">Connexion</a></li>
+                                        <li class="nav-item"><a
+                                                class="dropdown-item link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                                href="index.php?ctrl=security&action=register">Inscription</a></li>
+                                    </ul>
+                                    <?php
+                                }
                                 ?>
-                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=security&action=login">Connexion</a>
-                                <a class="link-dark nav-item link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
-                                    href="index.php?ctrl=security&action=register">Inscription</a>
-                                <?php
-                            }
-                            ?>
+                                </ul>
+                                </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </nav>
