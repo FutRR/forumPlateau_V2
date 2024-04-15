@@ -34,60 +34,53 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav">
-                                <li class="nav-item"><a class="link-dark nav-link link-offset-2 link-underline
-                                    link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                <li class="nav-item"><a class="link-dark link-offset-2 link-underline
+                                    link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                         href="index.php">Accueil</a></li>
                                 <?php
                                 // si l'utiliseur connecté est un admin
                                 if (App\Session::isAdmin()) {
                                     ?>
-                                    <li class="nav-item"><a class="link-dark nav-link link-offset-2 link-underline
-                                        link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                    <li class="nav-item"><a class="link-dark link-offset-2 link-underline
+                                        link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                             href="index.php?ctrl=home&action=users">Utilisateurs</a></li>
                                 <?php } ?>
                                 <li class="nav-item"><a
-                                        class="link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                        class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                         href="index.php?ctrl=forum&action=index">Catégories</a></li>
-                                <!-- <a id="btnSwitch" class="link-dark nav-link fs-5"><i class="fa-regular fa-moon"></i></a> -->
+                                <!-- <a id="btnSwitch" class="link-dark fs-5"><i class="fa-regular fa-moon"></i></a> -->
                             </ul>
 
-                            <div class="nav navbar-nav">
+                            <div class="nav navbar-nav me-auto">
                                 <?php if (App\Session::getUser()) { ?>
-                                    <ul class="navbar-nav navbar-right">
+                                    <ul class="navbar-nav me-auto">
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                            <a class="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown"
                                                 href="#"><span class="fs-3"><?= App\Session::getUser() ?></span></a>
                                             <ul class="dropdown-menu">
                                                 <?php
                                                 // si l'utilisateur est connecté 
                                                 ?>
                                                 <li class="nav-item"><a
-                                                        class="link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                                        class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                                         href="index.php?ctrl=forum&action=userProfile&id=<?= App\Session::getUser()->getId() ?>">Profile</a>
                                                 </li>
 
                                                 <li class="nav-item"><a
-                                                        class="link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                                        class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                                         href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
                                             </ul>
                                     </ul>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <ul class="navbar-nav navbar-right">
+                                <?php } else { ?>
+                                    <ul class="navbar-nav me-auto">
                                         <li class="nav-item"><a
-                                                class="dropdown-item link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                                class="dropdown-item link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                                 href="index.php?ctrl=security&action=login">Connexion</a></li>
                                         <li class="nav-item"><a
-                                                class="dropdown-item link-dark nav-link link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-1 fs-3"
+                                                class="dropdown-item link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover m-2 fs-3"
                                                 href="index.php?ctrl=security&action=register">Inscription</a></li>
                                     </ul>
-                                    <?php
-                                }
-                                ?>
-                                </ul>
-                                </li>
-                                </ul>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -95,7 +88,7 @@
             </header>
 
             <a href="#" class="btn btn-outline-dark btn-floating btn-lg"
-                style="position: fixed; bottom: 20px; right: 20px;">
+                style="position: fixed; bottom: 20px; right: 20px; z-index: 1;">
                 <i class="fas fa-arrow-up"></i>
             </a>
 
